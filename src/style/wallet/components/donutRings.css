@@ -1,0 +1,25 @@
+.donut-ring {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+}
+
+.donut-svg {
+    flex-shrink: 0;
+}
+
+.donut-labels {
+    display: flex;
+    flex-direction: column;
+}
+
+.donut-label {
+    font-size: 11px;
+    margin-bottom: 3px;
+}
+
+.donut-amount {
+    font-size: 17px;
+    font-weight: 800;
+}

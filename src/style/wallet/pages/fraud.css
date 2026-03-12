@@ -1,0 +1,139 @@
+.fraud-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    font-family: sans-serif;
+}
+
+.fraud-main {
+    flex: 1;
+    padding: 22px 24px;
+    overflow-y: auto;
+}
+
+.fraud-card {
+    background: #141720;
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.fraud-header {
+    font-size: 17px;
+    font-weight: 700;
+    color: #E8E9F5;
+    margin-bottom: 16px;
+}
+
+.fraud-row {
+    background: #1A1D2E;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 12px;
+}
+
+.fraud-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.fraud-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.fraud-severity {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+}
+
+.fraud-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #E8E9F5;
+}
+
+.fraud-desc {
+    font-size: 13px;
+    color: #5A5F80;
+}
+
+.fraud-time {
+    font-size: 11px;
+    color: #5A5F80;
+    margin-top: 6px;
+}
+
+.fraud-status {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    height: fit-content;
+}
+
+.fraud-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.btn-primary {
+    background: #FF5252;
+    color: white;
+    border: none;
+    padding: 7px 14px;
+    font-size: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-outline {
+    background: none;
+    border: 1px solid #FF5252;
+    color: #FF5252;
+    padding: 7px 14px;
+    font-size: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.fraud-sidebar {
+    width: 280px;
+    background: #141720;
+    border-left: 1px solid #272B40;
+    padding: 24px;
+    overflow-y: auto;
+}
+
+.rules-header {
+    font-size: 16px;
+    font-weight: 700;
+    color: #E8E9F5;
+    margin-bottom: 14px;
+}
+
+.rule-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #272B40;
+}
+
+.rule-label {
+    font-size: 13px;
+    color: #5A5F80;
+}
+
+.rule-value {
+    font-size: 13px;
+    font-weight: 700;
+    color: #E8E9F5;
+}
+
+.full-width {
+    width: 100%;
+    margin-top: 16px;
+}

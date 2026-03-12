@@ -1,0 +1,186 @@
+/* DashRightPanel.css */
+
+/* Panel container */
+.dash-right-panel {
+    width: 440px;
+    background: #141720; /* D.surface */
+    border-left: 1px solid #272B40; /* D.border */
+    padding: 24px 26px;
+    overflow-y: auto;
+    flex-shrink: 0;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    color: #E8E9F5; /* D.text */
+}
+
+/* Header */
+.dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.dash-header span {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.dash-header .see-all {
+    font-size: 13px;
+    font-weight: 600;
+    color: #FF5252; /* D.accent */
+    cursor: pointer;
+}
+
+/* Card stack */
+.card-stack {
+    position: relative;
+    height: 220px;
+    margin-bottom: 18px;
+}
+
+.card-back {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    right: 10px;
+    z-index: 1;
+    transform: scale(0.95);
+    transform-origin: bottom center;
+    opacity: 0.85;
+}
+
+.card-front {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+/* Card action buttons */
+.card-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 26px;
+}
+
+.btn-primary {
+    flex: 1;
+    font-size: 13px;
+    background: #FF5252; /* D.accent */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 0;
+    cursor: pointer;
+}
+
+.btn-outline {
+    flex: 1;
+    font-size: 13px;
+    background: transparent;
+    color: #E8E9F5; /* D.text */
+    border: 1px solid #272B40; /* D.border */
+    border-radius: 8px;
+    padding: 8px 0;
+    cursor: pointer;
+}
+
+.btn-purple {
+    flex: 1;
+    font-size: 13px;
+    background: #7B68F0; /* D.accent2 */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 0;
+    cursor: pointer;
+}
+
+/* Wallet Summary */
+.wallet-summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.wallet-summary-header span:first-child {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.wallet-summary-header .see-all {
+    font-size: 13px;
+    font-weight: 600;
+    color: #FF5252; /* D.accent */
+    cursor: pointer;
+}
+
+.wallet-summary {
+    background: #1A1D2E; /* D.surface2 */
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 16px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.divider {
+    width: 1px;
+    height: 50px;
+    background: #272B40; /* D.border */
+    flex-shrink: 0;
+}
+
+/* Mini stats grid */
+.mini-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.mini-stat {
+    border-radius: 14px;
+    padding: 14px 12px;
+    text-align: center;
+    border: 1px solid #272B40; /* D.border */
+    color: #E8E9F5; /* D.text */
+}
+
+.mini-stat .icon {
+    font-size: 18px;
+    margin-bottom: 7px;
+}
+
+.mini-stat .label {
+    font-size: 10px;
+    color: #5A5F80; /* D.muted */
+    margin-bottom: 4px;
+}
+
+.mini-stat .value {
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.mini-stat .trend.up {
+    font-size: 10px;
+    color: #22D47A; /* D.green */
+    margin-top: 3px;
+}
+
+.mini-stat .trend.down {
+    font-size: 10px;
+    color: #F04444; /* D.red */
+    margin-top: 3px;
+}
+
+/* Action buttons */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}

@@ -1,0 +1,165 @@
+.settings-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    font-family: sans-serif;
+}
+
+.settings-main {
+    flex: 1;
+    padding: 22px 24px;
+    overflow-y: auto;
+}
+
+.settings-card {
+    background: #141720;
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.settings-header {
+    font-size: 17px;
+    font-weight: 700;
+    color: #E8E9F5;
+    margin-bottom: 18px;
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #1A1D2E;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 22px;
+}
+
+.profile-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+    background: #7B68F0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    font-weight: 700;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #E8E9F5;
+}
+
+.profile-email {
+    font-size: 13px;
+    color: #5A5F80;
+}
+
+.profile-edit label {
+    font-size: 13px;
+    color: #5A5F80;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.profile-edit input {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #272B40;
+    background: #1A1D2E;
+    color: #E8E9F5;
+    margin-bottom: 12px;
+}
+
+.section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #E8E9F5;
+    margin-bottom: 14px;
+}
+
+.security-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid #272B40;
+}
+
+.security-title {
+    font-size: 14px;
+    color: #E8E9F5;
+}
+
+.security-sub {
+    font-size: 12px;
+    color: #5A5F80;
+    margin-top: 2px;
+}
+
+.settings-sidebar {
+    width: 280px;
+    background: #141720;
+    border-left: 1px solid #272B40;
+    padding: 24px;
+    overflow-y: auto;
+}
+
+.sidebar-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #E8E9F5;
+    margin-bottom: 14px;
+}
+
+.preference-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 13px 0;
+    border-bottom: 1px solid #272B40;
+}
+
+.pref-label {
+    font-size: 13px;
+    color: #5A5F80;
+}
+
+.pref-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: #FF5252;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: #FF5252;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-outline {
+    background: none;
+    border: 1px solid #272B40;
+    color: #FF5252;
+    padding: 5px 12px;
+    font-size: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.signout {
+    width: 100%;
+    margin-top: 20px;
+}

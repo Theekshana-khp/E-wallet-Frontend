@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import "../../style/wallet/mainDashBoard.css";
 import Wallet from "./pages/wallet";
-
+import DashBoard from "./pages/dashBoard";
+import SendMoney from "./pages/sendMoney";
+import Transactions from "./pages/transactions";
+import Analytics from "./pages/analytics";
+import Notifications from "./pages/notification";
+import FraudAlerts from "./pages/fraud";
+import Settings from "./pages/settings";
 function MainDashBoard() {
 
     const [activeNav, setActiveNav] = useState("dashboard");
@@ -17,9 +23,17 @@ function MainDashBoard() {
         { id: "analytics", icon: "⬡", label: "Analytics" },
         { id: "cards", icon: "▣", label: "My Cards" },
         { id: "notifications", icon: "◎", label: "Notifications" },
-        { id: "admin", icon: "⊞", label: "Admin" },
         { id: "fraud", icon: "⚑", label: "Fraud Alerts" },
         { id: "settings", icon: "⚙", label: "Settings" }
+    ];
+
+    const TRANSACTIONS = [
+        { id: 1, name: "Transfer to Mikey", sub: "Online food order", amount: -1250.60, type: "debit", date: "TODAY | 22ND JAN, 2020", avatar: "M" },
+        { id: 2, name: "Salary For the Month of Apr", sub: "Monthly Salary", amount: 12840.00, type: "credit", date: "TODAY | 22ND JAN, 2020", avatar: "S" },
+        { id: 3, name: "Transfer to Nika", sub: "Rent payment", amount: -800.00, type: "debit", date: "YESTERDAY | 21ST JAN, 2020", avatar: "N" },
+        { id: 4, name: "Amazon Purchase", sub: "Online shopping", amount: -234.99, type: "debit", date: "YESTERDAY | 21ST JAN, 2020", avatar: "A" },
+        { id: 5, name: "Freelance Payment", sub: "Design project", amount: 3200.00, type: "credit", date: "20TH JAN, 2020", avatar: "F" },
+        { id: 6, name: "Netflix Subscription", sub: "Monthly bill", amount: -15.99, type: "debit", date: "20TH JAN, 2020", avatar: "N" },
     ];
 
     const unread = 3;
@@ -38,8 +52,15 @@ function MainDashBoard() {
 
     const pageContent = () => {
         switch(activeNav) {
+            case "dashboard": return <DashBoard TRANSACTIONS={TRANSACTIONS}/>;
             case "wallet": return <Wallet D={D} />;
-            case "send": return <div>Send Money</div>;
+            case "send": return <SendMoney/>;
+            case "analytics": return <Analytics/>;
+            case "transactions": return <Transactions/>;
+            case "cards": return <DashBoard TRANSACTIONS={TRANSACTIONS}/>;
+            case "notifications": return <Notifications/>;
+            case "fraud": return <FraudAlerts/>;
+            case "settings": return <Settings/>;
             default: return <div>Page not found</div>;
         }
     };
