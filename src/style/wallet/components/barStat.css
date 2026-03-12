@@ -1,0 +1,28 @@
+.bar-stat {
+    margin-bottom: 13px;
+}
+
+.bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #9aa0a6;
+    margin-bottom: 5px;
+}
+
+.bar-value {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.bar-track {
+    height: 7px;
+    background: #20243A;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 4px;
+}
