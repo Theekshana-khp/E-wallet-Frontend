@@ -1,0 +1,104 @@
+
+.credit-card {
+    width: 100%;
+    border-radius: 22px;
+    padding: 20px 24px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 18px 50px rgba(0,0,0,0.55);
+    transition: transform 0.2s;
+}
+
+.credit-card.shrink {
+    height: 160px;
+}
+
+.credit-card.full {
+    height: 186px;
+}
+
+.credit-card .circle-top-right {
+    position: absolute;
+    top: -28px;
+    right: -28px;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+}
+
+.credit-card .circle-bottom-left {
+    position: absolute;
+    bottom: -36px;
+    left: 50px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+}
+
+/* Top row: two dots + brand */
+.credit-card .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.credit-card .dots {
+    display: flex;
+}
+
+.credit-card .dot1,
+.credit-card .dot2 {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.55);
+}
+
+.credit-card .dot2 {
+    background: rgba(255,255,255,0.25);
+    margin-left: -9px;
+}
+
+.credit-card .brand {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+
+.credit-card .card-number {
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 18px;
+    font-family: monospace;
+}
+
+.credit-card .card-number.shrink {
+    font-size: 15px;
+}
+
+.credit-card .card-number.full {
+    font-size: 17px;
+}
+
+.credit-card .bottom-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.credit-card .label {
+    font-size: 9px;
+    opacity: 0.6;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.credit-card .value {
+    font-size: 13px;
+    font-weight: 600;
+}

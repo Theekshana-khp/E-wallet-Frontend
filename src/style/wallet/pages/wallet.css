@@ -1,0 +1,298 @@
+/* Container */
+.wallet-container {
+    display: flex;
+    flex: 1;
+    background: #0D0F18;
+    color: #E8E9F5;
+    font-family: "Inter", sans-serif;
+    gap: 20px;
+}
+
+/* Wallet Buttons */
+.wallet-actions button {
+    flex: 1;
+    height: 48px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.wallet-actions button.send {
+    background: #FF5252;  /* red */
+    color: #fff;
+}
+
+.wallet-actions button.add {
+    background: #7B68F0; /* purple */
+    color: #fff;
+}
+
+.wallet-actions button.request {
+    background: transparent;
+    color: #8C8F9A; /* muted text */
+    border: 1px solid #272B40;
+}
+
+/* Top-Up Chips */
+.topup-chips button {
+    width: 56px;
+    height: 36px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+    background: #1A1D2E; /* dark surface */
+    color: #8C8F9A;
+}
+
+.topup-chips button.active {
+    background: #FF5252;
+    color: #fff;
+}
+
+/* Input */
+.wallet-card input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid #272B40;
+    background: #1A1D2E;
+    color: #fff;
+    margin-bottom: 14px;
+}
+
+/* Confirm Top-Up */
+.wallet-card button.confirm-topup {
+    width: 100%;
+    height: 48px;
+    border-radius: 12px;
+    background: #FF5252;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Frequent Recipients */
+.wallet-recipients .wallet-recipient-avatar {
+    width: 48px;
+    height: 48px;
+    font-weight: 700;
+    font-size: 16px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Adjust spacing */
+.wallet-card {
+    padding: 24px;
+    margin-bottom: 20px;
+}
+
+/* Left Panel */
+.wallet-left {
+    flex: 1;
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Cards */
+.wallet-card {
+    background: #141720;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+/* Card Titles */
+.wallet-card h2 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+/* Total Balance */
+.wallet-balance {
+    font-size: 44px;
+    font-weight: 900;
+    margin: 6px 0;
+}
+
+.wallet-balance-text {
+    font-size: 13px;
+    color: #22D47A;
+}
+
+/* Buttons */
+.wallet-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.wallet-btn {
+    flex: 1;
+    padding: 12px 0;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.2s;
+    border: none;
+}
+
+.wallet-btn.primary {
+    background: #FF5252;
+    color: white;
+}
+
+.wallet-btn.purple {
+    background: #7B68F0;
+    color: white;
+}
+
+.wallet-btn.outline {
+    background: transparent;
+    border: 1px solid #272B40;
+    color: #E8E9F5;
+}
+
+.wallet-btn:hover { opacity: 0.85; }
+
+/* Top-Up Chips */
+.topup-chips {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.wallet-chip {
+    padding: 6px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    background: #1A1D2E;
+    color: #E8E9F5;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.wallet-chip.selected {
+    background: #FF5252;
+}
+
+/* Input */
+.wallet-card input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    background: #1A1D2E;
+    border: none;
+    color: #E8E9F5;
+    margin-bottom: 14px;
+}
+
+/* Frequent Recipients */
+.wallet-recipients {
+    display: flex;
+    gap: 12px;
+}
+
+.wallet-recipient {
+    text-align: center;
+    cursor: pointer;
+}
+
+.wallet-recipient-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+}
+
+.wallet-recipient-name {
+    font-size: 12px;
+    color: #5A5F80;
+}
+
+/* Right Panel */
+.wallet-right {
+    width: 440px;
+    background: #1A1D2E;
+    border-left: 1px solid #272B40;
+    padding: 26px;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+/* Credit Cards */
+.wallet-cards-wrapper {
+    position: relative;
+    height: 220px;
+    margin-bottom: 20px;
+}
+
+.wallet-card-back, .wallet-card-front {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+/* Back Card */
+.wallet-card-back {
+    top: 20px;
+    left: 10px;
+    right: 10px;
+    z-index: 1;
+    transform: scale(0.95);
+    transform-origin: bottom center;
+    opacity: 0.85;
+    background: linear-gradient(135deg,#3D33CC 0%,#7B68F0 100%);
+}
+
+/* Front Card */
+.wallet-card-front {
+    z-index: 2;
+    background: linear-gradient(135deg,#FF7A6A 0%,#FF3D3D 55%,#C42828 100%);
+}
+
+/* Spending Limits */
+.wallet-spending-limit {
+    margin-bottom: 14px;
+}
+
+.wallet-spending-limit-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.wallet-spending-limit-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: #20243A;
+    overflow: hidden;
+}
+
+.wallet-spending-limit-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: #FF5252;
+    transition: width 0.3s ease;
+}
