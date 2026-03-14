@@ -92,7 +92,7 @@ html, body {
 }
 
 /* ── Logo area ── */
-.logo-wrap{
+.logo-wrap {
     display: flex;
     justify-content: center;
     align-items: center; gap: 12px;

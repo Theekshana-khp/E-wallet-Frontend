@@ -2,7 +2,7 @@
 
 /* Panel container */
 .dash-right-panel {
-    width: 440px;
+
     background: #141720; /* D.surface */
     border-left: 1px solid #272B40; /* D.border */
     padding: 24px 26px;
@@ -12,6 +12,27 @@
     color: #E8E9F5; /* D.text */
 }
 
+.btn-purple-dash{
+    flex: 1;
+    font-size: 13px;
+    background: #7B68F0; /* D.accent2 */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 0;
+    cursor: pointer;
+}
+
+.btn-primary-dash{
+    flex: 1;
+    font-size: 13px;
+    background: #FF5252; /* D.accent */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 0;
+    cursor: pointer;
+}
 /* Header */
 .dash-header {
     display: flex;
