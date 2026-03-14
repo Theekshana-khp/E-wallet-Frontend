@@ -71,7 +71,7 @@ html, body {
 }
 
 /* ── Card ── */
-.card-login {
+.card-login{
     width: 100%;
     max-width: 420px;
     background: linear-gradient(135deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.02) 100%);
@@ -92,7 +92,7 @@ html, body {
 }
 
 /* ── Logo area ── */
-.logo-wrap {
+.logo-wrap{
     display: flex;
     justify-content: center;
     align-items: center; gap: 12px;
