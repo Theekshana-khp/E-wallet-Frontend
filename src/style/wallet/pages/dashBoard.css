@@ -5,8 +5,39 @@
 }
 
 .dashboard-left {
-    flex: 1;
+    flex: 2;
     padding: 22px 24px;
+    overflow-y: auto;
+}
+
+
+/* scrollbar size */
+.dashboard-left::-webkit-scrollbar {
+    width: 1px;
+}
+
+/* hidden initially */
+.dashboard-left::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+
+.dashboard-Right::-webkit-scrollbar {
+    width: 2px;
+}
+
+/* hidden initially */
+.dashboard-Right::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+
+.dashboard-Right{
+    flex: 1;
     overflow-y: auto;
 }
 
