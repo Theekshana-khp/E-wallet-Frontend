@@ -14,7 +14,7 @@ function Login() {
             <div className="orb orb-3"></div>
 
             <div className="shell">
-                <div className="card">
+                <div className="card-login">
 
                     {/* Logo */}
                     <div className="logo-wrap">
