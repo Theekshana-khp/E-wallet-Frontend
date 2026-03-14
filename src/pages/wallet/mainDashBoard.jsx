@@ -101,7 +101,9 @@ function MainDashBoard() {
                         <div className="avatar">A</div>
                     </div>
                 </div>
-                {pageContent()}
+
+                    {pageContent()}
+
             </div>
         </div>
     );

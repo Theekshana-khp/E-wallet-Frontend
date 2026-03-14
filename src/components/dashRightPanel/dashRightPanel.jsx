@@ -20,11 +20,6 @@ const DashRightPanel = ({ btn }) => {
                 </div>
             </div>
 
-            <div className="card-actions">
-                <button className="btn-primary">+ Add Card</button>
-                <button className="btn-outline">Manage Cards</button>
-            </div>
-
             <div className="wallet-summary-header">
                 <span>Wallet Summary</span>
                 <span className="see-all">›</span>
@@ -52,8 +47,8 @@ const DashRightPanel = ({ btn }) => {
             </div>
 
             <div className="action-buttons">
-                <button className="btn-purple">Request Money</button>
-                <button className="btn-primary">Send Invoice</button>
+                <button className="btn-purple-dash">+ Add Card</button>
+                <button className="btn-primary-dash">Manage Cards</button>
             </div>
         </div>
     );

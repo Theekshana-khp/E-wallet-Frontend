@@ -67,8 +67,9 @@ function Dashboard({ TRANSACTIONS, D }) {
                 </div>
             </div>
 
-            {/* Right Panel */}
-            <DashRightPanel />
+            <div className="dashboard-Right">
+                <DashRightPanel />
+            </div>
         </div>
     );
 }
