@@ -28,7 +28,7 @@ function Login() {
             </div>
             <div className="logo-text">
               <div className="brand">VaultX</div>
-              <div className="tagline">Secure E Wallet</div>
+              <div className="tagline">Secure E-Wallet</div>
             </div>
           </div>
 
