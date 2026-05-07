@@ -95,8 +95,10 @@
 
 /* Period Buttons */
 .period-buttons {
+    font-family: 'Inter', sans-serif;
     display: flex;
     gap: 8px;
+    font-weight: 700;
 }
 
 .chip {

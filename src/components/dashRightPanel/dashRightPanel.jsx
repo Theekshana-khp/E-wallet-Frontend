@@ -1,34 +1,25 @@
-import React from "react";
-import CreditCard from "../creditCard/creditCard";
-import DonutRing from "../donutRings/donutRings";
+import React,{useState} from "react";
 import "../../style/wallet/components/dashRight.css";
 
+const NOTIFICATIONS = [
+    { id: 1, title: "Transfer Successful", desc: "You sent $1,250.60 to Mikey", time: "2 min ago", type: "success", read: false },
+    { id: 2, title: "Salary Received", desc: "$12,840.00 credited to your wallet", time: "1 hr ago", type: "credit", read: false },
+    { id: 3, title: "Fraud Alert", desc: "Unusual login detected from new device", time: "3 hr ago", type: "alert", read: false },
+    { id: 4, title: "Bill Due", desc: "Netflix subscription due tomorrow", time: "5 hr ago", type: "info", read: true },
+    { id: 5, title: "Limit Reached", desc: "80% of daily transfer limit used", time: "1 day ago", type: "warning", read: true },
+];
+
 const DashRightPanel = ({ btn }) => {
+const [notifs, setNotifs] = useState(NOTIFICATIONS);
+
     return (
         <div className="dash-right-panel">
-            <div className="dash-header">
-                <span>Your Cards</span>
-                <span className="see-all">See all ›</span>
-            </div>
-
-            <div className="card-stack">
-                <div className="card-back">
-                    <CreditCard gradient="linear-gradient(135deg,#3D33CC 0%,#7B68F0 100%)" last4="1847" holder="Anita Rose" expiry="03/26" brand="MC" shrink />
-                </div>
-                <div className="card-front">
-                    <CreditCard gradient="linear-gradient(135deg,#FF7A6A 0%,#FF3D3D 55%,#C42828 100%)" last4="5025" holder="Anita Rose" expiry="09/27" brand="VISA" />
-                </div>
-            </div>
-
             <div className="wallet-summary-header">
-                <span>Wallet Summary</span>
-                <span className="see-all">›</span>
+                <span>Account Summary</span>
             </div>
 
             <div className="wallet-summary">
-                <DonutRing pct={0.55} color="#FF5252" label="Outcome" amount="$460.00" />
-                <div className="divider" />
-                <DonutRing pct={1} color="#7B68F0" label="Income" amount="$840.00" />
+                <div>Acoount Balence : 20000.00 LKR</div>
             </div>
 
             <div className="mini-stats-grid">
@@ -47,9 +38,54 @@ const DashRightPanel = ({ btn }) => {
             </div>
 
             <div className="action-buttons">
-                <button className="btn-purple-dash">+ Add Card</button>
-                <button className="btn-primary-dash">Manage Cards</button>
+                <button className="btn-purple-dash">Transfer</button>
+                <button className="btn-primary-dash">Pay</button>
             </div>
+
+            <div className="dash-notifi" style={{overflow:"auto",maxHeight:"350px" , marginTop:"10px"}}>
+                    <div className="notifications-header">
+                        <span>Notifications</span>
+                        <button
+                            className="mark-read-btn"
+                            onClick={() => setNotifs(notifs.map((n) => ({ ...n, read: true })))}
+                        >
+                            Mark all read
+                        </button>
+                    </div>
+
+                    {notifs.map((n) => (
+                        <div
+                            key={n.id}
+                            className={`notif-row ${n.read ? "read" : ""}`}
+                            onClick={() =>
+                                setNotifs(
+                                    notifs.map((x) => (x.id === n.id ? { ...x, read: true } : x))
+                                )
+                            }
+                        >
+                            <div className="notif-icon">
+                                {n.type === "success"
+                                    ? "✅"
+                                    : n.type === "alert"
+                                        ? "🚨"
+                                        : n.type === "credit"
+                                            ? "💰"
+                                            : n.type === "warning"
+                                                ? "⚠️"
+                                                : "ℹ️"}
+                            </div>
+                            <div className="notif-content">
+                                <div className="notif-title-row">
+                                    <span className="notif-title">{n.title}</span>
+                                    {!n.read && <div className="notif-dot" />}
+                                </div>
+                                <div className="notif-desc">{n.desc}</div>
+                                <div className="notif-time">{n.time}</div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            
         </div>
     );
 };

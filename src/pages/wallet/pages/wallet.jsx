@@ -13,7 +13,7 @@ const RECIPIENTS = [
 function Wallet() {
     const [topAmt, setTopAmt] = useState("");
     const [topOk, setTopOk] = useState(false);
-    const [selectedRecipient, setSelectedRecipient] = useState(null);
+    const [ setSelectedRecipient] = useState(null);
 
     const limits = [
         { label: "Daily Transfer", used: 4000, max: 5000 },

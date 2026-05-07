@@ -11,8 +11,7 @@ function Dashboard({ TRANSACTIONS, D }) {
     return (
         <div className="dashboard">
             <div className="dashboard-left">
-                {/* Income Card */}
-                <div className="card">
+                <div className="card" style={{maxHeight:"370px"}}>
                     <div className="card-header">
                         <span className="card-title">Income</span>
                         <div className="card-sort">
@@ -24,12 +23,10 @@ function Dashboard({ TRANSACTIONS, D }) {
                             </select>
                         </div>
                     </div>
-                    <WaveChart />
-                    <div className="chart-dates">
-                        {["Apr 01","Apr 02","Apr 03","Apr 04","Apr 05","Apr 06","Apr 07"].map(d => <span key={d}>{d}</span>)}
-                    </div>
-                    <div className="period-buttons">
-                        {["1d","1w","1m","3m","1y","all"].map(p => (
+                    <WaveChart chartData={{ label: ["Apr ", "Apr 02", "Apr 03", "Apr 04", "Apr 05", "Apr 06", "Apr 07" , "Apr ", "Apr 02", "Apr 03", "Apr 04", "Apr 05"], data: [65, 59, 80, 81, 56, 55, 40,20.13,23,54,52,32] }} />
+                
+                    <div className="period-buttons" style={{marginTop:"10px"}}>
+                        {["day","week","month","3months","year"].map(p => (
                             <button key={p} className={`chip ${period === p ? "active" : ""}`} onClick={() => setPeriod(p)}>
                                 {p}
                             </button>
@@ -37,7 +34,6 @@ function Dashboard({ TRANSACTIONS, D }) {
                     </div>
                 </div>
 
-                {/* Recent Transactions Card */}
                 <div className="card">
                     <div className="card-header">
                         <span className="card-title">Recent Transactions</span>
