@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import "../../style/wallet/mainDashBoard.css";
 import Wallet from "./pages/wallet";
 import DashBoard from "./pages/dashBoard";
 import SendMoney from "./pages/sendMoney";
 import Transactions from "./pages/transactions";
-import Analytics from "./pages/analytics";
 import Notifications from "./pages/notification";
 import FraudAlerts from "./pages/fraud";
 import Settings from "./pages/settings";
+import keycloak from "../../keycloak/keycloak";
 function MainDashBoard() {
 
     const [activeNav, setActiveNav] = useState("dashboard");
@@ -20,8 +20,6 @@ function MainDashBoard() {
         { id: "wallet", icon: "◉", label: "MainDashBoard" },
         { id: "send", icon: "↗", label: "Send Money" },
         { id: "transactions", icon: "≡", label: "Transactions" },
-        { id: "analytics", icon: "⬡", label: "Analytics" },
-        { id: "cards", icon: "▣", label: "My Cards" },
         { id: "notifications", icon: "◎", label: "Notifications" },
         { id: "fraud", icon: "⚑", label: "Fraud Alerts" },
         { id: "settings", icon: "⚙", label: "Settings" }
@@ -55,15 +53,30 @@ function MainDashBoard() {
             case "dashboard": return <DashBoard TRANSACTIONS={TRANSACTIONS}/>;
             case "wallet": return <Wallet D={D} />;
             case "send": return <SendMoney/>;
-            case "analytics": return <Analytics/>;
             case "transactions": return <Transactions/>;
-            case "cards": return <DashBoard TRANSACTIONS={TRANSACTIONS}/>;
             case "notifications": return <Notifications/>;
             case "fraud": return <FraudAlerts/>;
             case "settings": return <Settings/>;
             default: return <div>Page not found</div>;
         }
     };
+
+    useEffect(() => {
+        fetch("http://localhost:8085/dashboard",
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${keycloak.token}`,
+                },
+            }
+            )
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+        })
+        .catch((err) => console.log(err));
+    }, []);
 
     return (
         <div className="wallet-layout">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import "../../style/auth/Login.css";
 import logoImage from "../../assets/images/logo/logo.png";
@@ -6,8 +6,30 @@ import logoImage from "../../assets/images/logo/logo.png";
 function Login() {
   const navigator = useNavigate();
 
+  const [password , setpassword] = useState("");
+  const [username , setusername] = useState("");
+
   function login() {
-    navigator("/dashboard");
+    fetch("http://127.0.0.1:8181/realms/e-wallet/protocol/openid-connect/token",{
+      method:"POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body:new URLSearchParams({
+        grant_type:"password",
+        client_id:"react-frontend",
+        username:username,
+        password:password,
+      })
+    }).then(res => res.json())
+    .then(data => {
+      if (data.access_token) {
+        localStorage.setItem("token", data.access_token);
+        navigator("/dashboard");
+      } else {
+        alert("Invalid Username or Password");
+      }
+    })
   }
 
   return (
@@ -49,6 +71,7 @@ function Login() {
                 id="email"
                 placeholder="Email Address"
                 autoComplete="off"
+                onChange={(e)=>setusername(e.target.value)}
               />
               <span className="field-icon">
                 <svg
@@ -67,7 +90,8 @@ function Login() {
               </span>
             </div>
             <div className="field">
-              <input type="password" id="password" placeholder="Password" />
+              <input type="password" id="password" placeholder="Password"
+                     onChange={(e)=>setpassword(e.target.value)}/>
               <span className="field-icon" id="togglePwd">
                 <svg
                   id="eyeIcon"
