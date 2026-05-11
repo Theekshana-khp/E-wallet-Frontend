@@ -12,6 +12,8 @@ function MainDashBoard() {
 
     const [activeNav, setActiveNav] = useState("dashboard");
     const [activeTab, setActiveTab] = useState("summary");
+    const [transactionData, setTransactionData] = useState([]);
+    const [isDataLoaded, setIsDataLoaded] = useState(false);
 
     const TOP_NAV = ["summary", "my cards", "credit history", "installments"];
 
@@ -50,7 +52,7 @@ function MainDashBoard() {
 
     const pageContent = () => {
         switch(activeNav) {
-            case "dashboard": return <DashBoard TRANSACTIONS={TRANSACTIONS}/>;
+            case "dashboard": return <DashBoard TRANSACTIONS ={transactionData}/>;
             case "wallet": return <Wallet D={D} />;
             case "send": return <SendMoney/>;
             case "transactions": return <Transactions/>;
@@ -73,10 +75,19 @@ function MainDashBoard() {
             )
         .then((res) => res.json())
         .then((data) => {
+            setTransactionData(data);
+            setIsDataLoaded(true);
+            console.log(transactionData);
             console.log(data);
         })
         .catch((err) => console.log(err));
     }, []);
+
+    if(!isDataLoaded) {
+        return (
+            <div>Data Loading</div>
+        )
+    }
 
     return (
         <div className="wallet-layout">

@@ -44,8 +44,9 @@
 }
 
 .chip.active {
-    border-color: #ff5252;
-    background: #ff5252;
+    font-weight: 700;
+    border-color: rgb(1, 23, 48);
+    background: rgba(5, 57, 117, 0.82);
     color: white;
 }
 

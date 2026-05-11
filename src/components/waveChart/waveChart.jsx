@@ -23,7 +23,7 @@ function WaveChart({ chartData }) {
     plugins: {
       title: {
         display: true,
-        text: "Users Gained between 2016-2020"
+        text: "Your Account Balance"
       },
       legend: {
         display: false

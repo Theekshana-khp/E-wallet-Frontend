@@ -50,6 +50,30 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
+.card::-webkit-scrollbar {
+    width: 1px;
+}
+
+/* hidden initially */
+.card::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+
+.card::-webkit-scrollbar {
+    width: 2px;
+}
+
+/* hidden initially */
+.card::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+
 /* Card Header */
 .card-header {
     display: flex;
@@ -59,8 +83,8 @@
 }
 
 .card-title {
-    font-size: 17px;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: 600;
     color: #ffffff; /* D.text */
 }
 
@@ -111,7 +135,7 @@
 }
 
 .chip.active {
-    background: #ff5252;
+    background: #08164e;
     color: white;
 }
 

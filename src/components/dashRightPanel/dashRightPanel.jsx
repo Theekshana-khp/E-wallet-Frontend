@@ -42,7 +42,7 @@ const [notifs, setNotifs] = useState(NOTIFICATIONS);
                 <button className="btn-primary-dash">Pay</button>
             </div>
 
-            <div className="dash-notifi" style={{overflow:"auto",maxHeight:"350px" , marginTop:"10px"}}>
+            <div className="dash-notifi" style={{overflow:"auto",maxHeight:"360px" , marginTop:"10px"}}>
                     <div className="notifications-header">
                         <span>Notifications</span>
                         <button

@@ -48,7 +48,7 @@
 }
 
 .nav-button.active{
-    background:#ff5252;
+    background: rgba(9, 23, 97, 0.85);
     color:white;
 }
 
@@ -108,7 +108,7 @@
 
 .active-tab{
     color:white;
-    border-bottom:2px solid #ff5252;
+    border-bottom:2px solid #272B40;
     font-weight:700;
 }
 
