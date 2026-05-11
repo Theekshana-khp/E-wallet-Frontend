@@ -7,6 +7,8 @@ import keycloak from "../../../keycloak/keycloak";
 function Dashboard() {
     const [period, setPeriod] = useState("Day");
     const [labels, setLabels] = useState([]);
+    const [chartData, setChartData] = useState([]);
+
     const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
@@ -29,13 +31,29 @@ function Dashboard() {
 
         let date = new Date();
         let tempLabels = [];
+        let tempdata=[];
+
+        let accountCredit = transactions[transactions.length - 1]?.currentWalletAmount || 0;
+
         if (period === "Day") {
             for (let i = 0; i < 14; i++) {
                 let day = date.getDate();
                 let month = date.toLocaleString("default", { month: "short" });
 
+                let currentDate = date.toISOString().split("T")[0];
+
+                let todayTransactions = transactions.filter(
+                    tx => tx.createdAt.split("T")[0] === currentDate
+                );
+
+
+                if(todayTransactions.length > 0){
+                    accountCredit = todayTransactions[0].currentWalletAmount;
+                }
+
                 tempLabels.push(`${month} ${day}`);
-                console.log('tempLabels');
+                tempdata.push(accountCredit);
+
                 date.setDate(date.getDate() - 1);
             }
         }else if(period === "Month") {
@@ -62,7 +80,8 @@ function Dashboard() {
             }
         }
         setLabels(tempLabels.reverse());
-    },[period])
+        setChartData(tempdata.reverse());
+    },[period , transactions])
 
     const avBg = ["#ff5252", "#ff8a65", "#ffb74d", "#4db6ac"];
 
@@ -73,7 +92,7 @@ function Dashboard() {
                     <div className="card-header">
                         <span className="card-title">Account Balance</span>
                     </div>
-                    <WaveChart chartData={{ label: labels, data: [65, 59, 80, 81, 56, 55, 40,20.13,23,54,52,32] }} />
+                    <WaveChart chartData={{ label: labels, data: chartData }} />
                 
                     <div className="period-buttons" style={{marginTop:"10px"}}>
                         {["Day","Week","Month","Year"].map(p => (
