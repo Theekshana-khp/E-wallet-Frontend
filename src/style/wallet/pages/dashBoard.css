@@ -191,5 +191,5 @@
 }
 
 .tx-amount.debit {
-    color: #ffffff; /* normal text for debit */
+    color: red;
 }

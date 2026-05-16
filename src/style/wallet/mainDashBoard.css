@@ -134,7 +134,7 @@
     width:36px;
     height:36px;
     border-radius:50%;
-    background:linear-gradient(135deg,#ff5252,#ff8a65);
+    border:1px solid #78789f;
     display:flex;
     align-items:center;
     justify-content:center;

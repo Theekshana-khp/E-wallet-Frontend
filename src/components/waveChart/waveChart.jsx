@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+
 import "../../style/wallet/components/waveChart.css";
 import { Line } from "react-chartjs-2";
 import "chart.js/auto";
@@ -35,21 +35,6 @@ function WaveChart({ chartData }) {
         }
   }
   };
-
-  useEffect(() => {
-      fetch("http://localhost:8085/dashboard",{
-        method:"GET",
-        headers:{
-          "Content-Type":"application/json"
-        }
-      }).then(res => res.json())
-      .then(data => {
-        console.log("Fetched wave data:", data);
-      })
-      .catch(err => {
-        console.error("Error fetching wave data:", err);
-      });
-  })
 
   return (
     <div style={{ width: "100%", height: "260px" }}>
