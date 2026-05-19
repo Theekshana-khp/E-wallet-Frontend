@@ -1,22 +1,41 @@
 import "../../style/auth/register.css"
 import { useNavigate } from "react-router-dom";
+import keycloak from "../../keycloak/keycloak";
 
 function Register() {
     const navigator = useNavigate();
 
     function handleRegister() {
+        let userData={};
+
         let ok = true;
-        ['fname','lname','email','phone','nic'].forEach(function(id){
+        ['firstName','lastName','email','phone','nic','dateOfBirth'].forEach((id)=>{
             let el = document.getElementById(id);
             if(!el.value.trim()){
                 el.classList.add('invalid');
                 ok=false;
             }else{
+                userData[id] = el.value.trim();
                 el.classList.remove('invalid');
             }
         });
         if(ok){
-            navigator("/");
+            console.log(userData);
+            fetch("http://localhost:8085/user/add",{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization":`Bearer ${keycloak.token}`
+                },
+                body:JSON.stringify(userData)
+            }).then(res => res.json()).then(data => {
+                if(data.status === "success"){
+                    alert("Account created successfully");
+                    navigator("/");
+                }else{
+                    alert("Account creation failed");
+                }
+            })
         }
     }
 
@@ -25,18 +44,19 @@ function Register() {
             <div className="ew-title">E-Wallet</div>
             <div className="ew-card">
                 <div className="ew-grid">
+                    <div className="ew-section" style ={{marginTop:"0.5rem"}}>User Basic details</div>
                     <div className="ew-field">
-                        <label htmlFor="fname">First name</label>
-                        <input className="ew-input" id="fname" type="text" placeholder="John" maxLength="100"/>
+                        <label htmlFor="first_name">First name</label>
+                        <input className="ew-input" id="firstName" type="text" placeholder="John" maxLength="100"/>
                     </div>
                     <div className="ew-field">
-                        <label htmlFor="lname">Last name</label>
-                        <input className="ew-input" id="lname" type="text" placeholder="Doe" maxLength="100"/>
+                        <label htmlFor="lAST_name">Last name</label>
+                        <input className="ew-input" id="lastName" type="text" placeholder="Doe" maxLength="100"/>
                     </div>
 
                     <div className="ew-field">
                         <label htmlFor="dob">Date of birth</label>
-                        <input className="ew-input" id="dob" type="date"/>
+                        <input className="ew-input" id="dateOfBirth" type="date"/>
                     </div>
                     <div className="ew-field">
                         <label htmlFor="nic">NIC number</label>
@@ -46,22 +66,16 @@ function Register() {
 
                     <div className="ew-section" style ={{marginTop:"0.5rem"}}>Contact details</div>
 
-                    <div className="ew-field ew-full">
-                        <label htmlFor="email">Email address</label>
-                        <input className="ew-input" id="email" type="email" placeholder="john.doe@example.com"
-                               maxLength="150"/>
-                    </div>
-                    <div className="ew-field">
-                        <label htmlFor="phone">Phone number</label>
-                        <input className="ew-input" id="phone" type="tel" placeholder="+94 77 123 4567" maxLength="20"/>
-                    </div>
-                    <div className="ew-field">
-                        <label htmlFor="status">Account status</label>
-                        <select className="ew-input" id="status">
-                            <option value="ACTIVE" selected>Active</option>
-                            <option value="INACTIVE">Inactive</option>
-                            <option value="SUSPENDED">Suspended</option>
-                        </select>
+                    <div className="ew-field ew-full" style={{display:"flex", flexDirection:"row",width:"100%"}}>
+                        <div>
+                            <label htmlFor="email" style={{flex:"1"}}>Email address</label>
+                            <input className="ew-input" id="email" type="email" placeholder="john.doe@example.com"
+                                   maxLength="150"/>
+                        </div>
+                        <div className="ew-field" style={{flex:"1"}}>
+                            <label htmlFor="phone">Phone number</label>
+                            <input className="ew-input" id="phone" type="tel" placeholder="+94 77 123 4567" maxLength="20"/>
+                        </div>
                     </div>
 
                     <div className="ew-field ew-full">
