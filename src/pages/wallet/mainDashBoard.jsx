@@ -7,7 +7,6 @@ import Transactions from "./pages/transactions";
 import Notifications from "./pages/notification";
 import FraudAlerts from "./pages/fraud";
 import Settings from "./pages/settings";
-import keycloak from "../../keycloak/keycloak";
 function MainDashBoard() {
 
     const [activeNav, setActiveNav] = useState("dashboard");
