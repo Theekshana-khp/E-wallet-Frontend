@@ -77,15 +77,15 @@
 /* Card Header */
 .card-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin-bottom: 10px;
 }
 
 .card-title {
-    font-size: 15px;
+    font-size: 16px;
+    color: #9ba5b2;
     font-weight: 600;
-    color: #ffffff; /* D.text */
 }
 
 .card-sort {

@@ -94,6 +94,7 @@
 }
 
 .notif-time {
+    font-weight: 800;
     font-size: 11px;
     color: #5a5f80;
     margin-top: 4px;

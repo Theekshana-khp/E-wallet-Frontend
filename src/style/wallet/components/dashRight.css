@@ -16,7 +16,8 @@
 .btn-purple-dash{
     flex: 1;
     font-size: 13px;
-    background: #7B68F0; /* D.accent2 */
+    font-weight: 700;
+    background: #433885;
     color: white;
     border: none;
     border-radius: 8px;
@@ -57,7 +58,8 @@
 .btn-primary-dash{
     flex: 1;
     font-size: 13px;
-    background: #FF5252; /* D.accent */
+    font-weight: 700;
+    background: #392f71; /* D.accent */
     color: white;
     border: none;
     border-radius: 8px;
@@ -153,9 +155,10 @@
 /* Wallet Summary */
 .wallet-summary-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
+    color: #9ba5b2;
 }
 
 .wallet-summary-header span:first-child {
@@ -171,13 +174,18 @@
 }
 
 .wallet-summary {
-    background: #1A1D2E; /* D.surface2 */
+    background: #1A1D2E;
     border-radius: 16px;
     padding: 18px;
-    margin-bottom: 16px;
     display: flex;
-    gap: 10px;
+    justify-content: center;
+    flex-direction: row;
     align-items: center;
+    margin-bottom: 16px;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 700;
+
 }
 
 .divider {

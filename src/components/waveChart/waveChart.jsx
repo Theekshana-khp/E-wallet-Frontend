@@ -23,7 +23,6 @@ function WaveChart({ chartData }) {
     plugins: {
       title: {
         display: true,
-        text: "Your Account Balance"
       },
       legend: {
         display: false

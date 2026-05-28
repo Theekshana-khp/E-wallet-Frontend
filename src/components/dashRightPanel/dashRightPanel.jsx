@@ -1,35 +1,44 @@
 import React,{useState} from "react";
+
+import transferIcon from "../../assets/images/notification/transfer.png";
+import encryptedIcon from "../../assets/images/notification/encrypted.png";
+import walletIcon from "../../assets/images/notification/wallet.png";
+import warningIcon from "../../assets/images/notification/warning.png";
+import userIcon from "../../assets/images/notification/user (1).png";
+import ringingIcon from "../../assets/images/notification/ringing.png";
+import accDetailUser from "../../assets/images/notification/acc-user.png";
+import accUpcomming from "../../assets/images/notification/money-bag.png";
+import past from "../../assets/images/notification/dividend.png";
+
 import "../../style/wallet/components/dashRight.css";
 
-const NOTIFICATIONS = [
-    { id: 1, title: "Transfer Successful", desc: "You sent $1,250.60 to Mikey", time: "2 min ago", type: "success", read: false },
-    { id: 2, title: "Salary Received", desc: "$12,840.00 credited to your wallet", time: "1 hr ago", type: "credit", read: false },
-    { id: 3, title: "Fraud Alert", desc: "Unusual login detected from new device", time: "3 hr ago", type: "alert", read: false },
-    { id: 4, title: "Bill Due", desc: "Netflix subscription due tomorrow", time: "5 hr ago", type: "info", read: true },
-    { id: 5, title: "Limit Reached", desc: "80% of daily transfer limit used", time: "1 day ago", type: "warning", read: true },
-];
-
-const DashRightPanel = ({ btn }) => {
-const [notifs, setNotifs] = useState(NOTIFICATIONS);
-
+const DashRightPanel = ({accountDetails , notifications}) => {
+const [notifs, setNotifs] = useState(notifications);
     return (
+
         <div className="dash-right-panel">
             <div className="wallet-summary-header">
                 <span>Account Summary</span>
             </div>
 
             <div className="wallet-summary">
-                <div>Acoount Balence : 20000.00 LKR</div>
+                <div style={{fontsize:"18px"}}>Acoount Balence </div>
+                <div>{Number(accountDetails.balance).toLocaleString("en-LK", {
+                    style: "currency",
+                    currency: "LKR",
+                })}</div>
             </div>
 
             <div className="mini-stats-grid">
                 {[
-                    { icon: "⚡", bg: "#1E1A3A", label: "This Week", val: "3.45k", trend: "+6.4%", up: true },
-                    { icon: "↗", bg: "#152215", label: "This Month", val: "$12.9k", trend: "-3.1%", up: false },
-                    { icon: "⏱", bg: "#251A15", label: "Upcoming", val: "$14.4k", trend: "+10.3%", up: true },
+                    { icon: "acc-user", bg: "#152215",label: "Account Details", val: accountDetails.accountNumber, trend: "Ambalangoda", up: true },
+                    { icon: "acc-upcomming", bg: "#251A15", label: "Upcoming", val: "$14.4k", trend: "+10.3%", up: true },
+                    { icon: "⚡", bg: "#1E1A3A", label: "This Week", val: "3.45k", trend: "+6.4%", up: true }
                 ].map((s) => (
                     <div key={s.label} className="mini-stat" style={{ background: s.bg }}>
-                        <div className="icon">{s.icon}</div>
+                        <div className="icon">
+                            <img src={s.icon === "acc-user" ? accDetailUser : s.icon === "acc-upcomming" ? accUpcomming:past}
+                                                   style={{ width: "37px", height: "40px" }} alt={""}></img></div>
                         <div className="label">{s.label}</div>
                         <div className="value">{s.val}</div>
                         <div className={`trend ${s.up ? "up" : "down"}`}>{s.trend}</div>
@@ -55,7 +64,7 @@ const [notifs, setNotifs] = useState(NOTIFICATIONS);
 
                     {notifs.map((n) => (
                         <div
-                            key={n.id}
+                            key={1}
                             className={`notif-row ${n.read ? "read" : ""}`}
                             onClick={() =>
                                 setNotifs(
@@ -64,23 +73,32 @@ const [notifs, setNotifs] = useState(NOTIFICATIONS);
                             }
                         >
                             <div className="notif-icon">
-                                {n.type === "success"
-                                    ? "✅"
-                                    : n.type === "alert"
-                                        ? "🚨"
-                                        : n.type === "credit"
-                                            ? "💰"
-                                            : n.type === "warning"
-                                                ? "⚠️"
-                                                : "ℹ️"}
+                                {n.notificationType === "PAYMENT"
+                                    ? <img src={walletIcon} alt="payment" style={{ width: "37px", height: "40px" }} />
+                                    : n.notificationType === "SECURITY"
+                                        ? <img src={encryptedIcon} alt="security" style={{ width: "90px", height: "40px" }} />
+                                        : n.notificationType === "TRANSFER"
+                                            ? <img src={transferIcon} alt="transfer" style={{ width: "70px", height: "40px" }} />
+                                            : n.notificationType === "ALERT"
+                                                ? <img src={warningIcon} alt="alert" style={{ width: "45px", height: "40px" }} />
+                                                : n.notificationType === "ACCOUNT"
+                                                    ? <img src={userIcon} alt="account" style={{ width: "50px", height: "40px" }} />
+                                                    : <img src={ringingIcon} alt="notification" style={{ width: "100px", height: "40px" }} />
+                                }
                             </div>
                             <div className="notif-content">
                                 <div className="notif-title-row">
                                     <span className="notif-title">{n.title}</span>
-                                    {!n.read && <div className="notif-dot" />}
+                                    {!n.isRead && <div className="notif-dot" />}
                                 </div>
-                                <div className="notif-desc">{n.desc}</div>
-                                <div className="notif-time">{n.time}</div>
+                                <div className="notif-desc">{n.message}</div>
+                                <div className="notif-time">{new Date(n.createdAt).toLocaleString("en-US", {
+                                    month: "long",
+                                    day: "numeric",
+                                    year: "numeric",
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                })}</div>
                             </div>
                         </div>
                     ))}

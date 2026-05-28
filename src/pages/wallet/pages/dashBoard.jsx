@@ -15,6 +15,8 @@ function Dashboard() {
     const [isDataLoaded, setIsDataLoaded] = useState(false);
 
     const [transactions, setTransactions] = useState([]);
+    const [accountCredit, setAccountCredit] = useState(0);
+    const [notification, setNotification] = useState(0);
 
     useEffect(() => {
         fetch("http://localhost:8085/dashboard",
@@ -28,7 +30,10 @@ function Dashboard() {
         )
             .then((res) => res.json())
             .then((data) => {
+                console.log(data);
                 setTransactions(data.transactions);
+                setNotification(data.notifications);
+                setAccountCredit(data.accounts);
                 setIsDataLoaded(true);
             })
             .catch((err) => console.log(err));
@@ -179,7 +184,7 @@ function Dashboard() {
                 </div>
 
                 <div className="card" style={{maxHeight:"350px" , overflow:"auto" }}>
-                    <div className="card-header">
+                    <div className="card-header" style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
                         <span className="card-title">Recent Transactions</span>
                         <span style={{fontWeight:"700" , fontSize:"12px" , color:"#9f3636"}}>See All</span>
                     </div>
@@ -212,7 +217,7 @@ function Dashboard() {
             </div>
 
             <div className="dashboard-Right" style={{overflow:"hidden"}}>
-                <DashRightPanel />
+                <DashRightPanel accountDetails={accountCredit} notifications={notification} />
             </div>
         </div>
     );
