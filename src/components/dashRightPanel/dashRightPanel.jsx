@@ -12,7 +12,7 @@ import past from "../../assets/images/notification/dividend.png";
 
 import "../../style/wallet/components/dashRight.css";
 
-const DashRightPanel = ({accountDetails , notifications}) => {
+const DashRightPanel = ({accountDetails , notifications , navigate}) => {
 const [notifs, setNotifs] = useState(notifications);
     return (
 
@@ -47,7 +47,7 @@ const [notifs, setNotifs] = useState(notifications);
             </div>
 
             <div className="action-buttons">
-                <button className="btn-purple-dash">Transfer</button>
+                <button className="btn-purple-dash" onClick={()=>navigate("send")}>Transfer</button>
                 <button className="btn-primary-dash">Pay</button>
             </div>
 

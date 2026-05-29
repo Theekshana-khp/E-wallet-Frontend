@@ -16,21 +16,11 @@ function MainDashBoard() {
 
     const NAV_ITEMS = [
         { id: "dashboard", icon: "◈", label: "Dashboard" },
-        { id: "wallet", icon: "◉", label: "MainDashBoard" },
         { id: "send", icon: "↗", label: "Send Money" },
         { id: "transactions", icon: "≡", label: "Transactions" },
         { id: "notifications", icon: "◎", label: "Notifications" },
         { id: "fraud", icon: "⚑", label: "Fraud Alerts" },
         { id: "settings", icon: "⚙", label: "Settings" }
-    ];
-
-    const TRANSACTIONS = [
-        { id: 1, name: "Transfer to Mikey", sub: "Online food order", amount: -1250.60, type: "debit", date: "TODAY | 22ND JAN, 2020", avatar: "M" },
-        { id: 2, name: "Salary For the Month of Apr", sub: "Monthly Salary", amount: 12840.00, type: "credit", date: "TODAY | 22ND JAN, 2020", avatar: "S" },
-        { id: 3, name: "Transfer to Nika", sub: "Rent payment", amount: -800.00, type: "debit", date: "YESTERDAY | 21ST JAN, 2020", avatar: "N" },
-        { id: 4, name: "Amazon Purchase", sub: "Online shopping", amount: -234.99, type: "debit", date: "YESTERDAY | 21ST JAN, 2020", avatar: "A" },
-        { id: 5, name: "Freelance Payment", sub: "Design project", amount: 3200.00, type: "credit", date: "20TH JAN, 2020", avatar: "F" },
-        { id: 6, name: "Netflix Subscription", sub: "Monthly bill", amount: -15.99, type: "debit", date: "20TH JAN, 2020", avatar: "N" },
     ];
 
     const unread = 3;
@@ -48,16 +38,37 @@ function MainDashBoard() {
         NAV_ITEMS.find((item) => item.id === activeNav)?.label || "Page";
 
     const pageContent = () => {
-        switch(activeNav) {
-            case "dashboard": return <DashBoard/>;
-            case "wallet": return <Wallet D={D} />;
-            case "send": return <SendMoney/>;
-            case "transactions": return <Transactions/>;
-            case "notifications": return <Notifications/>;
-            case "fraud": return <FraudAlerts/>;
-            case "settings": return <Settings/>;
-            default: return <div>Page not found</div>;
-        }
+        return (
+            <>
+                <div style={{ display: activeNav === "dashboard" ? "block" : "none" }}>
+                    <DashBoard navigater={setActiveNav} />
+                </div>
+
+                <div style={{ display: activeNav === "wallet" ? "block" : "none" }}>
+                    <Wallet D={D} />
+                </div>
+
+                <div style={{ display: activeNav === "send" ? "block" : "none" }}>
+                    <SendMoney />
+                </div>
+
+                <div style={{ display: activeNav === "transactions" ? "block" : "none" }}>
+                    <Transactions />
+                </div>
+
+                <div style={{ display: activeNav === "notifications" ? "block" : "none" }}>
+                    <Notifications />
+                </div>
+
+                <div style={{ display: activeNav === "fraud" ? "block" : "none" }}>
+                    <FraudAlerts />
+                </div>
+
+                <div style={{ display: activeNav === "settings" ? "block" : "none" }}>
+                    <Settings />
+                </div>
+            </>
+        );
     };
 
     useEffect(() => {
@@ -97,7 +108,7 @@ function MainDashBoard() {
                             onClick={() => setActiveNav("notifications")}>
                             🔔
                         </button>
-                        <div className="avatar">A</div>
+                        <div className="avatar">P</div>
                     </div>
                 </div>
 
