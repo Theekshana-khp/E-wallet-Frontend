@@ -1,144 +1,350 @@
 import React, { useState } from "react";
-import "../../../style/wallet/pages/sendMoney.css"; // optional for styles
+import "../../../style/wallet/pages/sendMoney.css";
 
-const RECIPIENTS = [
-    { name: "Alice", avatar: "A", color: "#FF5252" },
-    { name: "Bob", avatar: "B", color: "#7B68F0" },
-    { name: "Charlie", avatar: "C", color: "#22D47A" },
+const contacts = [
+    { initials: "KP", name: "Kamal", bg: "#1e3a5f", color: "#60a5fa" },
+    { initials: "NA", name: "Nimal", bg: "#1e3a2f", color: "#34d399" },
+    { initials: "SB", name: "Saman", bg: "#3a1e3a", color: "#c084fc" },
+    { initials: "RP", name: "Roshan", bg: "#3a2a1e", color: "#fb923c" },
+    { initials: "DK", name: "Dilshan", bg: "#1e2a3a", color: "#38bdf8" }
 ];
 
-const TRANSACTIONS = [
-    { id: 1, name: "Alice", sub: "Wallet ID 123", type: "debit", amount: 50, avatar: "A" },
-    { id: 2, name: "Bob", sub: "Wallet ID 234", type: "debit", amount: 120, avatar: "B" },
+const scheduledData = [
+    { id: 1, name: "Electricity Bill", account: "LKB Power", amount: 8500, date: "Jun 5, 2026", repeat: "Monthly", icon: "⚡", color: "#fbbf24" },
+    { id: 2, name: "Kamal Perera", account: "ACC-20045", amount: 5000, date: "Jun 1, 2026", repeat: "One-time", icon: "👤", color: "#a5b4fc" },
+    { id: 3, name: "Loan Installment", account: "Bank of Ceylon", amount: 12000, date: "Jun 10, 2026", repeat: "Monthly", icon: "🏦", color: "#a5b4fc" },
+    { id: 4, name: "Internet Bill", account: "SLT Mobitel", amount: 2990, date: "Jun 8, 2026", repeat: "Monthly", icon: "📡", color: "#fbbf24" }
 ];
 
-const D = {
-    surface: "#161a23",
-    surface2: "#1A1D2E",
-    surface3: "#20243A",
-    border: "#2a2f3a",
-    text: "#ffffff",
-    muted: "#9aa0a6",
-    accent: "#ff5252",
-    accent2: "#7B68F0",
-    green: "#22D47A",
-};
+export default function SendMoney() {
+    const [activeTab, setActiveTab] = useState("New Transactions");
+    const [selectedContact, setSelectedContact] = useState(null);
+    const [recipient, setRecipient] = useState("");
+    const [amount, setAmount] = useState("");
+    const [note, setNote] = useState("");
+    const [schedule, setSchedule] = useState("now");
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [pin, setPin] = useState(true);
+    const [notifToggle, setNotifToggle] = useState(true);
+    const [limitToggle, setLimitToggle] = useState(true);
+    const [schedList, setSchedList] = useState(scheduledData);
+    const [showNewSched, setShowNewSched] = useState(false);
+    const [newSched, setNewSched] = useState({ name: "", amount: "", date: "", repeat: "Once" });
 
-const SendMoney = () => {
-    const [sendStep, setSendStep] = useState(1);
-    const [sendTo, setSendTo] = useState(null);
-    const [sendAmt, setSendAmt] = useState("");
-    const [sendNote, setSendNote] = useState("");
-    const [sendOk, setSendOk] = useState(false);
+    const formatted = Number(amount || 0).toLocaleString("en", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
 
-    const av = (color, size) => ({ width: size, height: size, background: color, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", color: "white" });
-    const chip = (active) => ({ padding: "6px 12px", borderRadius: 12, border: `1px solid ${active ? D.accent : D.border}`, background: active ? D.accent : D.surface2, color: active ? "white" : D.text, cursor: "pointer" });
-    const txRow = { display: "flex", alignItems: "center", gap: 12, padding: "10px 0", borderBottom: `1px solid ${D.border}` };
+    const selectContact = (c) => {
+        setSelectedContact(c.initials);
+        setRecipient(`${c.name} · saved contact`);
+    };
+
+    const confirmSend = () => {
+        if (!amount) return;
+        setShowSuccess(true);
+        setAmount("");
+        setRecipient("");
+        setSelectedContact(null);
+        setNote("");
+    };
+
+    const addScheduled = () => {
+        if (!newSched.name || !newSched.amount) return;
+        setSchedList([...schedList, {
+            id: Date.now(),
+            name: newSched.name,
+            account: "—",
+            amount: parseFloat(newSched.amount),
+            date: newSched.date || "—",
+            repeat: newSched.repeat,
+            icon: "👤",
+            color: "#a5b4fc"
+        }]);
+        setNewSched({ name: "", amount: "", date: "", repeat: "Once" });
+        setShowNewSched(false);
+    };
+
+    const deleteScheduled = (id) => {
+        setSchedList(schedList.filter(s => s.id !== id));
+    };
 
     return (
-        <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
-            <div style={{ flex: 1, padding: 24, overflowY: "auto" }}>
-                <div style={{ background: D.surface2, borderRadius: 16, padding: 24 }}>
-                    <div style={{ fontSize: 20, fontWeight: 700, color: D.text, marginBottom: 24 }}>Send Money</div>
-
-                    {/* Steps */}
-                    <div style={{ display: "flex", alignItems: "center", marginBottom: 28 }}>
-                        {["Choose Recipient","Enter Amount","Confirm"].map((label, i) => (
-                            <div key={i} style={{ display: "flex", alignItems: "center", flex: 1 }}>
-                                <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                                    <div style={{
-                                        width: 30, height: 30, borderRadius: "50%",
-                                        background: sendStep > i ? D.accent : D.surface3,
-                                        border: sendStep === i+1 ? `2px solid ${D.accent}` : "2px solid transparent",
-                                        color: sendStep > i ? "white" : sendStep === i+1 ? D.accent : D.muted,
-                                        display: "flex", alignItems: "center", justifyContent: "center",
-                                        fontSize: 12, fontWeight: 700
-                                    }}>{sendStep > i ? "✓" : i+1}</div>
-                                    <div style={{ fontSize: 11, color: sendStep === i+1 ? D.accent : D.muted, marginTop: 5, whiteSpace: "nowrap" }}>{label}</div>
-                                </div>
-                                {i < 2 && <div style={{ flex: 1, height: 2, background: sendStep > i+1 ? D.accent : D.border, margin: "0 4px", marginBottom: 16 }} />}
+        <>
+            <div className="sm-content">
+                <div className="sm-panel" style={{overflow: "auto" , maxHeight: "calc(100vh - 50px)"}}>
+                    <div className="sm-tabs">
+                        {["New Transactions", "Scheduled Transactions"].map((tab) => (
+                            <div
+                                key={tab}
+                                className={`sm-tab ${activeTab === tab ? "active" : ""}`}
+                                onClick={() => setActiveTab(tab)}
+                            >
+                                {tab}
                             </div>
                         ))}
                     </div>
 
-                    {/* Step content */}
-                    {sendOk ? (
-                        <div style={{ textAlign: "center", padding: "32px 0" }}>
-                            <div style={{ fontSize: 54, marginBottom: 14 }}>🎉</div>
-                            <div style={{ fontSize: 22, fontWeight: 700, color: D.green }}>Transfer Successful!</div>
-                            <div style={{ color: D.muted, marginTop: 8 }}>${sendAmt} sent to {sendTo?.name}</div>
-                            <button style={{ marginTop: 20, padding: "10px 16px", background: D.accent, color: "white", border: "none", borderRadius: 12, cursor: "pointer" }}
-                                    onClick={() => { setSendOk(false); setSendStep(1); setSendAmt(""); setSendTo(null); setSendNote(""); }}>New Transfer</button>
-                        </div>
-                    ) : sendStep === 1 ? (
-                        <>
-                            <input placeholder="Search name or wallet ID…" style={{ width: "100%", padding: "12px", borderRadius: 12, border: `1px solid ${D.border}`, marginBottom: 16 }} />
-                            <div style={{ fontSize: 13, color: D.muted, marginBottom: 12 }}>Quick Select</div>
-                            <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
-                                {RECIPIENTS.map(r => (
-                                    <div key={r.name} onClick={() => setSendTo(r)} style={{ textAlign: "center", cursor: "pointer", padding: "12px 16px", borderRadius: 14, background: sendTo?.name === r.name ? D.surface3 : D.surface2, border: `2px solid ${sendTo?.name === r.name ? D.accent : D.border}`, transition: "all 0.2s" }}>
-                                        <div style={{ ...av(r.color, 46), margin: "0 auto 8px", borderRadius: 14 }}>{r.avatar}</div>
-                                        <div style={{ fontSize: 12, color: D.muted }}>{r.name}</div>
+                    {activeTab === "New Transactions" && (
+                        <div className="sm-form-area">
+                            <p className="sm-section-title">Recent contacts</p>
+                            <div className="sm-contacts-row">
+                                {contacts.map((c) => (
+                                    <div
+                                        key={c.initials}
+                                        className={`sm-contact-chip ${selectedContact === c.initials ? "selected" : ""}`}
+                                        onClick={() => selectContact(c)}
+                                    >
+                                        <div className="sm-contact-avatar" style={{ background: c.bg, color: c.color }}>
+                                            {c.initials}
+                                        </div>
+                                        <span className="sm-contact-name">{c.name}</span>
                                     </div>
                                 ))}
                             </div>
-                            <button style={{ width: "100%", padding: "10px 16px", background: D.accent, color: "white", border: "none", borderRadius: 12, cursor: "pointer" }}
-                                    onClick={() => sendTo && setSendStep(2)}>Continue →</button>
-                        </>
-                    ) : sendStep === 2 ? (
-                        <>
-                            <div style={{ display: "flex", alignItems: "center", gap: 14, background: D.surface2, borderRadius: 14, padding: 16, marginBottom: 18 }}>
-                                <div style={{ ...av(sendTo?.color, 46), borderRadius: 14 }}>{sendTo?.avatar}</div>
-                                <div>
-                                    <div style={{ fontWeight: 700, color: D.text }}>{sendTo?.name}</div>
-                                    <div style={{ fontSize: 12, color: D.muted }}>@{sendTo?.name?.toLowerCase()}</div>
+
+                            <div className="sm-form-group">
+                                <label>Recipient</label>
+                                <input
+                                    className="sm-input"
+                                    placeholder="Account number or mobile"
+                                    value={recipient}
+                                    onChange={(e) => setRecipient(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="sm-form-group">
+                                <label>Amount</label>
+                                <div className="sm-currency-row">
+                                    <div className="sm-currency-badge">LKR</div>
+                                    <input
+                                        className="sm-amount-input"
+                                        type="number"
+                                        value={amount}
+                                        placeholder="0.00"
+                                        onChange={(e) => setAmount(e.target.value)}
+                                    />
+                                </div>
+                                <div className="sm-quick-amounts">
+                                    {[1000, 5000, 10000, 25000, 50000].map((v) => (
+                                        <div key={v} className="sm-quick-btn" onClick={() => setAmount(v)}>
+                                            {v.toLocaleString()}
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
-                            <input style={{ width: "100%", padding: "12px", fontSize: 26, fontWeight: 800, marginBottom: 12, borderRadius: 12, border: `1px solid ${D.border}`, background: D.surface3, color: D.text }} placeholder="$0.00" value={sendAmt} onChange={e => setSendAmt(e.target.value)} />
-                            <div style={{ display: "flex", gap: 8, marginBottom: 14 }}>
-                                {["50","100","250","500"].map(a => <button key={a} style={chip(sendAmt === a)} onClick={() => setSendAmt(a)}>${a}</button>)}
+
+                            <div className="sm-form-group">
+                                <label>Note (optional)</label>
+                                <input
+                                    className="sm-input"
+                                    placeholder="What's this for?"
+                                    value={note}
+                                    onChange={(e) => setNote(e.target.value)}
+                                />
                             </div>
-                            <input style={{ width: "100%", padding: "12px", marginBottom: 16, borderRadius: 12, border: `1px solid ${D.border}`, background: D.surface3, color: D.text }} placeholder="Add a note…" value={sendNote} onChange={e => setSendNote(e.target.value)} />
-                            <div style={{ display: "flex", gap: 10 }}>
-                                <button style={{ flex: 1, padding: "10px 16px", borderRadius: 12, border: `1px solid ${D.border}`, background: "transparent", color: D.text, cursor: "pointer" }} onClick={() => setSendStep(1)}>← Back</button>
-                                <button style={{ flex: 2, padding: "10px 16px", borderRadius: 12, border: "none", background: D.accent, color: "white", cursor: "pointer" }} onClick={() => sendAmt && setSendStep(3)}>Review →</button>
+
+                            <div className="sm-two-col">
+                                <div className={`sm-schedule-box ${schedule === "now" ? "selected" : ""}`} onClick={() => setSchedule("now")}>
+                                    <span className="sm-sched-icon">⚡</span>
+                                    <div>
+                                        <div className="sm-sched-label">Send now</div>
+                                        <div className="sm-sched-sub">Instant</div>
+                                    </div>
+                                </div>
+                                <div className={`sm-schedule-box ${schedule === "later" ? "selected" : ""}`} onClick={() => setSchedule("later")}>
+                                    <span className="sm-sched-icon">📅</span>
+                                    <div>
+                                        <div className="sm-sched-label">Schedule</div>
+                                        <div className="sm-sched-sub">Set date</div>
+                                    </div>
+                                </div>
                             </div>
-                        </>
-                    ) : (
-                        <>
-                            <div style={{ background: D.surface2, borderRadius: 16, padding: 20, marginBottom: 18 }}>
-                                {[["To", sendTo?.name],["Amount",`$${sendAmt}`],["Fee","$0.00"],["Note",sendNote||"—"],["Total",`$${sendAmt}`]].map(([k,v]) => (
-                                    <div key={k} style={{ display: "flex", justifyContent: "space-between", marginBottom: 11, fontSize: 14 }}>
-                                        <span style={{ color: D.muted }}>{k}</span>
-                                        <span style={{ fontWeight: k==="Total"?800:600, color: k==="Total"?D.accent:D.text }}>{v}</span>
+
+                            {schedule === "later" && (
+                                <div className="sm-form-group">
+                                    <label>Transfer date</label>
+                                    <input type="date" className="sm-input" />
+                                </div>
+                            )}
+
+                            <div className="sm-summary-card">
+                                <div className="sm-fee-row">
+                                    <span>Transfer amount</span>
+                                    <span>LKR {formatted}</span>
+                                </div>
+                                <div className="sm-fee-row">
+                                    <span>Service fee</span>
+                                    <span className="sm-free">Free</span>
+                                </div>
+                                <div className="sm-fee-row total">
+                                    <span>Total deducted</span>
+                                    <span>LKR {formatted}</span>
+                                </div>
+                            </div>
+
+                            <div className="sm-toggle-row">
+                                <span className="sm-toggle-label">Require PIN confirmation</span>
+                                <div className={`sm-toggle ${pin ? "on" : ""}`} onClick={() => setPin(!pin)} />
+                            </div>
+
+                            <button className="sm-send-btn" onClick={confirmSend}>
+                                Send Money
+                            </button>
+                        </div>
+                    )}
+
+                    {activeTab === "Scheduled Transactions" && (
+                        <div className="sm-form-area">
+                            <div className="sm-sched-header">
+                                <p className="sm-section-title" style={{ margin: 0 }}>Upcoming transfers</p>
+                                <button className="sm-new-btn" onClick={() => setShowNewSched(!showNewSched)}>
+                                    + New
+                                </button>
+                            </div>
+
+                            {showNewSched && (
+                                <div className="sm-new-sched-form">
+                                    <div className="sm-form-group">
+                                        <label>Recipient</label>
+                                        <input
+                                            className="sm-input"
+                                            placeholder="Name or account"
+                                            value={newSched.name}
+                                            onChange={(e) => setNewSched({ ...newSched, name: e.target.value })}
+                                        />
+                                    </div>
+                                    <div className="sm-two-col-inputs">
+                                        <div className="sm-form-group">
+                                            <label>Amount (LKR)</label>
+                                            <input
+                                                className="sm-input"
+                                                type="number"
+                                                placeholder="0.00"
+                                                value={newSched.amount}
+                                                onChange={(e) => setNewSched({ ...newSched, amount: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className="sm-form-group">
+                                            <label>Date</label>
+                                            <input
+                                                className="sm-input"
+                                                type="date"
+                                                value={newSched.date}
+                                                onChange={(e) => setNewSched({ ...newSched, date: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm-form-group">
+                                        <label>Repeat</label>
+                                        <select
+                                            className="sm-input sm-select"
+                                            value={newSched.repeat}
+                                            onChange={(e) => setNewSched({ ...newSched, repeat: e.target.value })}
+                                        >
+                                            <option>Once</option>
+                                            <option>Weekly</option>
+                                            <option>Monthly</option>
+                                        </select>
+                                    </div>
+                                    <div className="sm-new-sched-actions">
+                                        <button className="sm-send-btn sm-send-btn--small" onClick={addScheduled}>Save</button>
+                                        <button className="sm-cancel-btn" onClick={() => setShowNewSched(false)}>Cancel</button>
+                                    </div>
+                                </div>
+                            )}
+
+                            <div className="sm-sched-list">
+                                {schedList.map((s) => (
+                                    <div key={s.id} className="sm-sched-card">
+                                        <div className="sm-sched-card-icon">{s.icon}</div>
+                                        <div className="sm-sched-card-info">
+                                            <div className="sm-sched-card-name">{s.name}</div>
+                                            <div className="sm-sched-card-meta">
+                                                <span className="sm-repeat-badge">{s.repeat}</span>
+                                                {s.date}
+                                            </div>
+                                        </div>
+                                        <div className="sm-sched-card-right">
+                                            <div className="sm-sched-card-amount" style={{ color: s.color }}>
+                                                LKR {s.amount.toLocaleString("en", { minimumFractionDigits: 2 })}
+                                            </div>
+                                            <span className="sm-upcoming-badge">Upcoming</span>
+                                        </div>
+                                        <button className="sm-delete-btn" onClick={() => deleteScheduled(s.id)}>✕</button>
                                     </div>
                                 ))}
                             </div>
-                            <div style={{ display: "flex", gap: 10 }}>
-                                <button style={{ flex: 1, padding: "10px 16px", borderRadius: 12, border: `1px solid ${D.border}`, background: "transparent", color: D.text, cursor: "pointer" }} onClick={() => setSendStep(2)}>← Edit</button>
-                                <button style={{ flex: 2, padding: "10px 16px", borderRadius: 12, border: "none", background: D.accent, color: "white", cursor: "pointer" }} onClick={() => setSendOk(true)}>✓ Confirm & Send</button>
-                            </div>
-                        </>
+                        </div>
                     )}
+                </div>
+
+                <div className="sm-right">
+                    <p className="sm-section-title">Account</p>
+                    <div className="sm-account-card">
+                        <div className="sm-account-label">Available balance</div>
+                        <div className="sm-account-balance">LKR 74,470.00</div>
+                        <div className="sm-account-number">ACC100001 · Ambalangoda</div>
+                    </div>
+
+                    <div className="sm-stats-grid">
+                        <div className="sm-stat-card">
+                            <div className="sm-stat-lbl">Sent (May)</div>
+                            <div className="sm-stat-val">LKR 14.4k</div>
+                            <div className="sm-stat-up">▲ 10.3%</div>
+                        </div>
+                        <div className="sm-stat-card">
+                            <div className="sm-stat-lbl">This week</div>
+                            <div className="sm-stat-val">LKR 3.45k</div>
+                            <div className="sm-stat-down">▼ 6.4%</div>
+                        </div>
+                    </div>
+
+                    <p className="sm-section-title" style={{ marginTop: "20px" }}>Recent transfers</p>
+
+                    {[
+                        { initials: "KP", name: "Kamal Perera", date: "May 10, 2026", amount: "-LKR 2,200", type: "red", bg: "#1e3a5f", color: "#60a5fa" },
+                        { initials: "NA", name: "Nimal Abeynayake", date: "May 10, 2026", amount: "-LKR 5,000", type: "red", bg: "#1e3a2f", color: "#34d399" },
+                        { initials: "RP", name: "Roshan Perera", date: "May 8, 2026", amount: "+LKR 20,000", type: "green", bg: "#3a2a1e", color: "#fb923c" }
+                    ].map((r) => (
+                        <div key={r.initials} className="sm-recent-item">
+                            <div className="sm-r-avatar" style={{ background: r.bg, color: r.color }}>{r.initials}</div>
+                            <div className="sm-r-info">
+                                <div className="sm-r-name">{r.name}</div>
+                                <div className="sm-r-date">{r.date}</div>
+                            </div>
+                            <div className={`sm-r-amount ${r.type}`}>{r.amount}</div>
+                        </div>
+                    ))}
+
+                    <p className="sm-section-title" style={{ marginTop: "20px" }}>Preferences</p>
+
+                    <div className="sm-toggle-row">
+                        <div>
+                            <div className="sm-toggle-label">Transfer notifications</div>
+                            <div className="sm-toggle-sub">Alert on every transfer</div>
+                        </div>
+                        <div className={`sm-toggle ${notifToggle ? "on" : ""}`} onClick={() => setNotifToggle(!notifToggle)} />
+                    </div>
+                    <div className="sm-toggle-row no-border">
+                        <div>
+                            <div className="sm-toggle-label">Daily limit alerts</div>
+                            <div className="sm-toggle-sub">Warn at 80% of limit</div>
+                        </div>
+                        <div className={`sm-toggle ${limitToggle ? "on" : ""}`} onClick={() => setLimitToggle(!limitToggle)} />
+                    </div>
                 </div>
             </div>
 
-            {/* Right Panel */}
-            <div style={{ width: 360, background: D.surface, borderLeft: `1px solid ${D.border}`, padding: 24, overflowY: "auto" }}>
-                <div style={{ fontSize: 16, fontWeight: 700, color: D.text, marginBottom: 16 }}>Recent Transfers</div>
-                {TRANSACTIONS.filter(t => t.type === "debit").map((tx, i) => (
-                    <div key={tx.id} style={txRow}>
-                        <div style={av(tx.avatar, 38)}>{tx.avatar}</div>
-                        <div style={{ flex: 1 }}>
-                            <div style={{ fontSize: 13, fontWeight: 600, color: D.text }}>{tx.name}</div>
-                            <div style={{ fontSize: 11, color: D.muted }}>{tx.sub}</div>
-                        </div>
-                        <div style={{ fontSize: 13, fontWeight: 700, color: D.text }}>−${Math.abs(tx.amount).toLocaleString("en",{minimumFractionDigits:2})}</div>
-                    </div>
-                ))}
-            </div>
-        </div>
+            {showSuccess && (
+                <div className="sm-success-overlay">
+                    <div className="sm-success-icon">✓</div>
+                    <div className="sm-success-title">Transfer Successful!</div>
+                    <div className="sm-success-sub">Your money is on its way.</div>
+                    <button className="sm-done-btn" onClick={() => setShowSuccess(false)}>Done</button>
+                </div>
+            )}
+        </>
     );
-};
-
-export default SendMoney;
+}

@@ -8,7 +8,7 @@ import DashRightPanel from "../../../components/dashRightPanel/dashRightPanel";
 
 import keycloak from "../../../keycloak/keycloak";
 
-function Dashboard() {
+function Dashboard({navigater}) {
     const [period, setPeriod] = useState("Day");
     const [labels, setLabels] = useState([]);
     const [chartData, setChartData] = useState([]);
@@ -30,7 +30,6 @@ function Dashboard() {
         )
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
                 setTransactions(data.transactions);
                 setNotification(data.notifications);
                 setAccountCredit(data.accounts);
@@ -217,7 +216,7 @@ function Dashboard() {
             </div>
 
             <div className="dashboard-Right" style={{overflow:"hidden"}}>
-                <DashRightPanel accountDetails={accountCredit} notifications={notification} />
+                <DashRightPanel accountDetails={accountCredit} notifications={notification} navigate={navigater} />
             </div>
         </div>
     );
