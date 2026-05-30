@@ -12,7 +12,7 @@ const TRANSACTIONS = [
     { id: 8,  name: "Hana Bandara",    sub: "Wallet ID 890", type: "debit",  amount: 90,     date: "Apr 06, 2026" },
 ];
 
-const Transactions = ({transaction}) => {
+const Transactions = ({transaction , account}) => {
     const [txFilter, setTxFilter] = useState("all");
 
     const filtered = txFilter === "all"
@@ -26,6 +26,7 @@ const Transactions = ({transaction}) => {
     const fmt = (v) => v.toLocaleString("en", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     console.log(transaction);
+    console.log(account);
     return (
         <div className="tx-content">
             <div className="tx-panel">
@@ -57,7 +58,15 @@ const Transactions = ({transaction}) => {
                                     {tx.type === "credit" ? "+" : "−"}
                                 </div>
                                 <div className="tx-info">
-                                    <div className="tx-name">pasindu</div>
+                                    <div className="tx-name">
+                                        {!(tx.fromWalletId)
+                                            ? "You"
+                                            : !(tx.toWalletId)
+                                                ? "You"
+                                                    : (tx.fromWalletId !== account.accountNumber)
+                                                        ? tx.receiverName : tx.senderName
+                                        }
+                                    </div>
                                     <div className="tx-sub">{tx.description}</div>
                                 </div>
                                 <div className="tx-right">

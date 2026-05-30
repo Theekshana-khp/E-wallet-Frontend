@@ -11,7 +11,8 @@ function MainDashBoard() {
 
     const [activeNav, setActiveNav] = useState("dashboard");
     const [activeTab, setActiveTab] = useState("summary");
-    const [transactions, setTransactions] = useState([])
+    const [transactions, setTransactions] = useState([]);
+    const [accounts, setAccounts] = useState([]);
 
     const TOP_NAV = ["summary", "my cards", "credit history", "installments"];
 
@@ -42,7 +43,7 @@ function MainDashBoard() {
         return (
             <>
                 <div style={{ display: activeNav === "dashboard" ? "block" : "none" }}>
-                    <DashBoard navigater={setActiveNav } transactionSetter={setTransactions}/>
+                    <DashBoard navigater={setActiveNav } transactionSetter={setTransactions} accountSetter={setAccounts}/>
                 </div>
 
                 <div style={{ display: activeNav === "wallet" ? "block" : "none" }}>
@@ -54,7 +55,7 @@ function MainDashBoard() {
                 </div>
 
                 <div style={{ display: activeNav === "transactions" ? "block" : "none" }}>
-                    <Transactions transaction={transactions} />
+                    <Transactions transaction={transactions} account={accounts} />
                 </div>
 
                 <div style={{ display: activeNav === "notifications" ? "block" : "none" }}>
