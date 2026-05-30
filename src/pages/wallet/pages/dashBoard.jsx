@@ -8,7 +8,7 @@ import DashRightPanel from "../../../components/dashRightPanel/dashRightPanel";
 
 import keycloak from "../../../keycloak/keycloak";
 
-function Dashboard({navigater}) {
+function Dashboard({navigater , transactionSetter}) {
     const [period, setPeriod] = useState("Day");
     const [labels, setLabels] = useState([]);
     const [chartData, setChartData] = useState([]);
@@ -31,12 +31,13 @@ function Dashboard({navigater}) {
             .then((res) => res.json())
             .then((data) => {
                 setTransactions(data.transactions);
+                transactionSetter(data.transactions);
                 setNotification(data.notifications);
                 setAccountCredit(data.accounts);
                 setIsDataLoaded(true);
             })
             .catch((err) => console.log(err));
-    }, []);
+    }, [transactionSetter]);
 
     useEffect(() => {
         if (transactions.length === 0) return;
