@@ -11,10 +11,12 @@
 .tx-panel {
     flex: 3;
     display: flex;
+    max-height: calc(100vh - 130px);
     flex-direction: column;
     background: linear-gradient(145deg, #0d1322, #111827);
     border: 1px solid #1b2540;
     border-radius: 18px;
+    margin: 30px 10px 30px 30px;
     padding: 20px;
     overflow: hidden;
     box-shadow: 0 8px 30px rgba(0,0,0,.25);
@@ -77,7 +79,11 @@
 }
 
 .tx-section-title {
-    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 13px;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
     font-weight: 700;
     color: #ffffff;
 }
@@ -135,9 +141,10 @@
     border-radius: 14px;
     display: flex;
     align-items: center;
+    align-content: center;
     justify-content: center;
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 800;
 }
 
 .tx-icon.credit {
@@ -171,10 +178,13 @@
 
 
 .tx-row-right {
+    margin: 20px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
+
     align-items: flex-end;
-    gap: 6px;
+    gap: 10px;
 }
 
 .tx-amount {
@@ -193,7 +203,10 @@
 .tx-status-badge {
     font-size: 11px;
     padding: 4px 10px;
-    border-radius: 20px;
+    margin-top: 5px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
     background: rgba(16,185,129,.15);
     color: #34d399;
     font-weight: 600;
@@ -225,6 +238,7 @@
     border-radius: 14px;
     padding: 14px;
     margin-bottom: 12px;
+    margin-top: 9px;
     border: 1px solid #1d2943;
 }
 

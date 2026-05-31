@@ -17,7 +17,9 @@ const Transactions = ({transaction , account}) => {
 
     const filtered = txFilter === "all"
         ? transaction
-        : transaction.filter(t => t.type === txFilter);
+        : txFilter === "credit"
+            ?transaction.filter(t => String(account.accountNumber) === String(t.toWalletId))
+            : transaction.filter(t => String(account.accountNumber) === String(t.fromWalletId));
 
     const totalIncome   = TRANSACTIONS.filter(t => t.type === "credit").reduce((s, t) => s + t.amount, 0);
     const totalExpenses = TRANSACTIONS.filter(t => t.type === "debit").reduce((s, t) => s + t.amount, 0);
@@ -25,11 +27,21 @@ const Transactions = ({transaction , account}) => {
 
     const fmt = (v) => v.toLocaleString("en", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-    console.log(transaction);
-    console.log(account);
+    const monthlyTransactions = transaction.filter(
+        t => new Date(t.createdAt) >= new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+    );
+
+    const monthlyExpenses = monthlyTransactions
+        .filter(t => String(account.accountNumber) === String(t.fromWalletId))
+        .reduce((sum, t) => sum + t.amount, 0);
+
+    const monthlyIncome = monthlyTransactions
+        .filter(t => String(account.accountNumber) === String(t.toWalletId))
+        .reduce((sum, t) => sum + t.amount, 0);
+
     return (
-        <div className="tx-content">
-            <div className="tx-panel">
+        <div className="tx-content" style={{display: "flex", justifyContent: "space-between", flexDirection: "row"}}>
+            <div className="tx-panel" style={{flex:"3"}}>
                 <div className="tx-tabs">
                     {["all", "credit", "debit"].map(f => (
                         <div
@@ -51,11 +63,13 @@ const Transactions = ({transaction , account}) => {
                     {filtered.map((tx, i) => (
                         <div key={tx.transactionId} className={`tx-list-item ${tx.type}`}>
                             {(i === 0 || filtered[i - 1]?.createdAt !== tx.createdAt) && (
-                                <div className="tx-date-label">{tx.createdAt}</div>
+                                <div className="tx-date-label">{new Date(tx.createdAt).toLocaleString("en-LK", {
+                                    dateStyle: "medium"
+                                })}</div>
                             )}
                             <div className="tx-row">
-                                <div className={`tx-icon ${tx.type}`}>
-                                    {tx.type === "credit" ? "+" : "−"}
+                                <div className={"tx-icon " + (String(account.accountNumber) === String(tx.fromWalletId) ? "debit" : "credit")}>
+                                    {(String(account.accountNumber) === String(tx.fromWalletId))?"-":"+" }
                                 </div>
                                 <div className="tx-info">
                                     <div className="tx-name">
@@ -67,11 +81,16 @@ const Transactions = ({transaction , account}) => {
                                                         ? tx.receiverName : tx.senderName
                                         }
                                     </div>
-                                    <div className="tx-sub">{tx.description}</div>
+                                    <div style={{display: "flex", flexDirection: "row", gap: "12px"}}>
+                                        <div className="tx-sub" style={{fontWeight:"700"}}>{tx.description}</div>
+                                        <div className="tx-sub">{new Date(tx.createdAt).toLocaleString("en-LK", {
+                                            timeStyle: "short"
+                                        })}</div>
+                                    </div>
                                 </div>
                                 <div className="tx-right">
-                                    <div className={`tx-amount ${tx.type}`}>
-                                        {tx.type === "credit" ? "+" : "−"}LKR {fmt(tx.amount)}
+                                    <div className={"tx-amount" + (String(account.accountNumber) === String(tx.fromWalletId) ? "debit" : "credit")}>
+                                        {(String(account.accountNumber) === String(tx.fromWalletId))?"-":"+" }LKR {fmt(tx.amount)}
                                     </div>
                                     <div className="tx-status-badge">Completed</div>
                                 </div>
@@ -85,29 +104,27 @@ const Transactions = ({transaction , account}) => {
                 </div>
             </div>
 
-            <div className="tx-right">
-                <p className="tx-section-title">Summary</p>
-
+            <div className="tx-right" style={{ padding: "20px 20px 20px 0" ,flex:"1" }}>
                 <div className="tx-summary-card income">
                     <div className="tx-summary-label">Total Income</div>
-                    <div className="tx-summary-val green">+LKR {fmt(totalIncome)}</div>
+                    <div className="tx-summary-val green">+LKR {account.balance}</div>
                 </div>
 
                 <div className="tx-summary-card expenses">
                     <div className="tx-summary-label">Total Expenses</div>
-                    <div className="tx-summary-val red">−LKR {fmt(totalExpenses)}</div>
+                    <div className="tx-summary-val red">−LKR {monthlyExpenses}</div>
                 </div>
 
                 <div className="tx-summary-card net">
-                    <div className="tx-summary-label">Net Balance</div>
+                    <div className="tx-summary-label">Net Income</div>
                     <div className={`tx-summary-val ${net >= 0 ? "green" : "red"}`}>
-                        {net >= 0 ? "+" : "−"}LKR {fmt(Math.abs(net))}
+                        {net >= 0 ? "+" : "−"}LKR {monthlyIncome}
                     </div>
                 </div>
 
                 <p className="tx-section-title" style={{ marginTop: "20px" }}>Export</p>
 
-                {["CSV", "PDF", "Excel"].map(f => (
+                {["CSV", "PDF"].map(f => (
                     <button key={f} className="tx-outline-btn">↓ Download {f}</button>
                 ))}
 
