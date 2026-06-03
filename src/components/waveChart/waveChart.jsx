@@ -36,7 +36,7 @@ function WaveChart({ chartData }) {
   };
 
   return (
-    <div style={{ width: "100%", height: "260px" }}>
+    <div style={{ width: "100%", height: "220px" }}>
       <Line data={data} options={option} />
     </div>
   );

@@ -17,10 +17,6 @@ const [notifs, setNotifs] = useState(notifications);
     return (
 
         <div className="dash-right-panel">
-            <div className="wallet-summary-header">
-                <span>Account Summary</span>
-            </div>
-
             <div className="wallet-summary">
                 <div style={{fontsize:"18px"}}>Acoount Balence </div>
                 <div>{Number(accountDetails.balance).toLocaleString("en-LK", {
@@ -51,7 +47,7 @@ const [notifs, setNotifs] = useState(notifications);
                 <button className="btn-primary-dash">Pay</button>
             </div>
 
-            <div className="dash-notifi" style={{overflow:"auto",maxHeight:"360px" , marginTop:"10px"}}>
+            <div className="dash-notifi" style={{overflow:"auto",maxHeight:"calc(100vh-1000px)" , marginTop:"10px"}}>
                     <div className="notifications-header">
                         <span>Notifications</span>
                         <button

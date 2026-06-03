@@ -6,7 +6,10 @@
     background: #141720; /* D.surface */
     border-left: 1px solid #272B40; /* D.border */
     padding-left: 26px;
-    padding-right: 15px;
+    border-radius: 20px;
+    padding-right: 20px;
+    margin-top: 22px;
+    margin-right: 20px;
     padding-top: 26px;
     flex-shrink: 0;
     font-family: 'DM Sans', system-ui, sans-serif;
@@ -26,6 +29,7 @@
 }
 
 .dash-notifi {
+    max-height: calc(100vh - 390px);
   overflow-y: auto;
     padding-right: 20px;
 }

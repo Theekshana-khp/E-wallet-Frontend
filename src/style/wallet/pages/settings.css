@@ -1,165 +1,378 @@
-.settings-container {
+.st-content {
     display: flex;
-    flex: 1;
+    flex-direction: row;
+    height: 100%;
+    color: #e2e8f0;
+    font-family: "Segoe UI", sans-serif;
+    position: relative;
+}
+
+/* ── Panels ── */
+
+.st-panel {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     overflow: hidden;
-    font-family: sans-serif;
+    padding: 24px 20px 0 20px;
 }
 
-.settings-main {
+.st-right {
     flex: 1;
-    padding: 22px 24px;
-    overflow-y: auto;
+    padding: 24px 30px 0 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
-.settings-card {
-    background: #141720;
-    border-radius: 16px;
-    padding: 16px;
-}
+/* ── Hero ── */
 
-.settings-header {
-    font-size: 17px;
-    font-weight: 700;
-    color: #E8E9F5;
-    margin-bottom: 18px;
-}
-
-.profile-section {
+.st-hero {
     display: flex;
     align-items: center;
     gap: 16px;
-    background: #1A1D2E;
-    border-radius: 14px;
-    padding: 16px;
-    margin-bottom: 22px;
+    margin-bottom: 20px;
 }
 
-.profile-avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 18px;
-    background: #7B68F0;
+.st-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    color: white;
+    font-size: 20px;
     font-weight: 700;
+    color: white;
+    flex-shrink: 0;
 }
 
-.profile-info {
+.st-hero-info {
     flex: 1;
 }
 
-.profile-name {
-    font-size: 18px;
+.st-name {
+    font-size: 16px;
     font-weight: 700;
-    color: #E8E9F5;
+    color: #e2e8f0;
+    margin-bottom: 2px;
 }
 
-.profile-email {
-    font-size: 13px;
-    color: #5A5F80;
-}
-
-.profile-edit label {
-    font-size: 13px;
-    color: #5A5F80;
+.st-email {
+    font-size: 12px;
+    color: #4a5568;
     margin-bottom: 6px;
-    display: block;
 }
 
-.profile-edit input {
-    width: 100%;
-    padding: 8px 10px;
+.st-verified {
+    font-size: 11px;
+    font-weight: 600;
+    color: #22c55e;
+    background: #0d2518;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.st-edit-btn {
+    padding: 7px 16px;
+    background: #1c2040;
+    border: 1px solid #252d3d;
     border-radius: 8px;
-    border: 1px solid #272B40;
-    background: #1A1D2E;
-    color: #E8E9F5;
+    color: #a5b4fc;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    transition: background 0.2s;
+}
+
+.st-edit-btn:hover {
+    background: #252d3d;
+}
+
+/* ── Inline edit form ── */
+
+.st-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 16px;
     margin-bottom: 12px;
 }
 
-.section-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: #E8E9F5;
-    margin-bottom: 14px;
-}
-
-.security-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 0;
-    border-bottom: 1px solid #272B40;
-}
-
-.security-title {
-    font-size: 14px;
-    color: #E8E9F5;
-}
-
-.security-sub {
-    font-size: 12px;
-    color: #5A5F80;
-    margin-top: 2px;
-}
-
-.settings-sidebar {
-    width: 280px;
-    background: #141720;
-    border-left: 1px solid #272B40;
-    padding: 24px;
-    overflow-y: auto;
-}
-
-.sidebar-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: #E8E9F5;
-    margin-bottom: 14px;
-}
-
-.preference-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 13px 0;
-    border-bottom: 1px solid #272B40;
-}
-
-.pref-label {
-    font-size: 13px;
-    color: #5A5F80;
-}
-
-.pref-value {
-    font-size: 13px;
+.st-form-group label {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #4a5568;
     font-weight: 600;
-    color: #FF5252;
-    cursor: pointer;
+    margin-bottom: 5px;
 }
 
-.btn-primary {
-    background: #FF5252;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    font-size: 12px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.btn-outline {
-    background: none;
-    border: 1px solid #272B40;
-    color: #FF5252;
-    padding: 5px 12px;
-    font-size: 12px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.signout {
+.st-input {
     width: 100%;
-    margin-top: 20px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #7b8fe0;
+    background: #161b27;
+    color: #e2e8f0;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.st-input:focus {
+    border-color: #a5b4fc;
+}
+
+.st-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.st-save-btn {
+    padding: 9px 22px;
+    background: #6366f1;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.st-save-btn:hover {
+    opacity: 0.88;
+}
+
+.st-cancel-btn {
+    padding: 9px 16px;
+    background: #1e2433;
+    border: 1px solid #252d3d;
+    border-radius: 8px;
+    color: #4a5568;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.st-cancel-btn:hover {
+    background: #252d3d;
+}
+
+/* ── Divider ── */
+
+.st-divider {
+    border: none;
+    border-top: 1px solid #1a1f2e;
+    margin: 16px 0;
+}
+
+/* ── Section title ── */
+
+.st-sec-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    color: #4a5568;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+/* ── Setting rows (toggles) ── */
+
+.st-setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #1a1f2e;
+}
+
+.st-setting-row:last-of-type {
+    border-bottom: none;
+}
+
+.st-setting-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #c7d2e8;
+    margin-bottom: 2px;
+}
+
+.st-setting-sub {
+    font-size: 11px;
+    color: #4a5568;
+}
+
+.st-toggle {
+    width: 36px;
+    height: 20px;
+    border-radius: 10px;
+    background: #1e2433;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.st-toggle.on {
+    background: #6366f1;
+}
+
+.st-handle {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: white;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    transition: left 0.2s;
+}
+
+.st-toggle.on .st-handle {
+    left: 19px;
+}
+
+/* ── Outline buttons ── */
+
+.st-btn-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.st-outline-btn {
+    width: 100%;
+    padding: 9px 13px;
+    background: #161b27;
+    border: 1px solid #1e2433;
+    border-radius: 8px;
+    color: #a5b4fc;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.st-outline-btn:hover {
+    background: #1c2040;
+    border-color: #7b8fe0;
+}
+
+.st-danger {
+    color: #f87171;
+}
+
+.st-danger:hover {
+    background: #2a1010;
+    border-color: #f87171;
+}
+
+.st-logout {
+    color: #f87171;
+    margin-top: auto;
+}
+
+.st-logout:hover {
+    background: #2a1010;
+    border-color: #f87171;
+}
+
+/* ── Preferences ── */
+
+.st-pref-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+    border-bottom: 1px solid #1a1f2e;
+}
+
+.st-pref-row:last-of-type {
+    border-bottom: none;
+}
+
+.st-pref-row:hover {
+    background: #161b27;
+}
+
+.st-pref-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #c7d2e8;
+}
+
+.st-pref-val {
+    font-size: 12px;
+    color: #4a5568;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+/* ── Quick links ── */
+
+.st-link-row {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 9px 8px;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: background 0.15s;
+    margin-bottom: 2px;
+}
+
+.st-link-row:hover {
+    background: #161b27;
+}
+
+.st-link-ico {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: #1c2040;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #a5b4fc;
+    flex-shrink: 0;
+}
+
+.st-link-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #c7d2e8;
+    margin-bottom: 1px;
+}
+
+.st-link-sub {
+    font-size: 11px;
+    color: #4a5568;
+}
+
+.st-link-arrow {
+    margin-left: auto;
+    color: #4a5568;
+    font-size: 14px;
 }

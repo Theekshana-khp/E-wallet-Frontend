@@ -13,6 +13,7 @@ function MainDashBoard() {
     const [activeTab, setActiveTab] = useState("summary");
     const [transactions, setTransactions] = useState([]);
     const [accounts, setAccounts] = useState([]);
+    const [notifications, setNotifications] = useState([])
 
     const TOP_NAV = ["summary", "my cards", "credit history", "installments"];
 
@@ -25,7 +26,7 @@ function MainDashBoard() {
         { id: "settings", icon: "⚙", label: "Settings" }
     ];
 
-    const unread = 3;
+    const unread = notifications.filter(n => !n.isRead).length;;
 
     const D = {
         bg: "#0D0F18", surface: "#141720", surface2: "#1A1D2E", surface3: "#20243A",
@@ -43,7 +44,8 @@ function MainDashBoard() {
         return (
             <>
                 <div style={{ display: activeNav === "dashboard" ? "block" : "none" }}>
-                    <DashBoard navigater={setActiveNav } transactionSetter={setTransactions} accountSetter={setAccounts}/>
+                    <DashBoard navigater={setActiveNav } transactionSetter={setTransactions}
+                               accountSetter={setAccounts} notificationSetter={setNotifications}/>
                 </div>
 
                 <div style={{ display: activeNav === "wallet" ? "block" : "none" }}>
@@ -59,7 +61,7 @@ function MainDashBoard() {
                 </div>
 
                 <div style={{ display: activeNav === "notifications" ? "block" : "none" }}>
-                    <Notifications />
+                    <Notifications notification={notifications} />
                 </div>
 
                 <div style={{ display: activeNav === "fraud" ? "block" : "none" }}>

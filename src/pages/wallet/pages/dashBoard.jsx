@@ -8,7 +8,7 @@ import DashRightPanel from "../../../components/dashRightPanel/dashRightPanel";
 
 import keycloak from "../../../keycloak/keycloak";
 
-function Dashboard({navigater , transactionSetter , accountSetter}) {
+function Dashboard({navigater , transactionSetter , accountSetter ,notificationSetter}) {
     const [period, setPeriod] = useState("Day");
     const [labels, setLabels] = useState([]);
     const [chartData, setChartData] = useState([]);
@@ -34,11 +34,12 @@ function Dashboard({navigater , transactionSetter , accountSetter}) {
                 accountSetter(data.accounts);
                 transactionSetter(data.transactions);
                 setNotification(data.notifications);
+                notificationSetter(data.notifications);
                 setAccountCredit(data.accounts);
                 setIsDataLoaded(true);
             })
             .catch((err) => console.log(err));
-    }, [transactionSetter, accountSetter]);
+    }, [transactionSetter, accountSetter,notificationSetter]);
 
     useEffect(() => {
         if (transactions.length === 0) return;
@@ -184,7 +185,7 @@ function Dashboard({navigater , transactionSetter , accountSetter}) {
                     </div>
                 </div>
 
-                <div className="card" style={{maxHeight:"350px" , overflow:"auto" }}>
+                <div className="card" style={{maxHeight:"calc(100vh - 445px)" , overflow:"auto" }}>
                     <div className="card-header" style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
                         <span className="card-title">Recent Transactions</span>
                         <span style={{fontWeight:"700" , fontSize:"12px" , color:"#9f3636"}}>See All</span>
@@ -208,8 +209,8 @@ function Dashboard({navigater , transactionSetter , accountSetter}) {
                                     <div className="tx-name">{tx.description}</div>
                                     <div className="tx-sub">Date {tx.createdAt.split('T')[0]}</div>
                                 </div>
-                                <div className={`tx-amount ${tx.type === "DEPOSIT" ? "credit" : tx.type === "WITHDRAW" ? "debit" :"" }`}>
-                                    {tx.type === "DEPOSIT" ? "+" : tx.type === "WITHDRAW" ? "-" :"" }RS {Math.abs(tx.amount).toLocaleString("en",{minimumFractionDigits:2})}
+                                <div className={`tx-amount ${tx.type === "DEPOSIT" ? "credit" : tx.type === "WITHDRAW" ? "credit" :"debit" }`}>
+                                    LKR {Math.abs(tx.amount).toLocaleString("en",{minimumFractionDigits:2})}
                                 </div>
                             </div>
                         </div>

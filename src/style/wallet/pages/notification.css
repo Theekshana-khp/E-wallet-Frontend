@@ -156,3 +156,295 @@
 .toggle-switch.on .toggle-handle {
     left: 23px;
 }
+
+.nf-content {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    color: #e2e8f0;
+    font-family: "Segoe UI", sans-serif;
+    position: relative;
+}
+
+/* ── Left panel ── */
+
+.nf-panel {
+    background: linear-gradient(145deg, #0d1322, #111827);
+    border: 1px solid #1b2540;
+    border-radius: 18px;
+    margin: 30px 10px 30px 30px;
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 140px);
+    overflow: hidden;
+    padding: 20px 20px 0 20px;
+}
+
+/* ── Right panel ── */
+
+.nf-right {
+    flex: 1;
+    padding: 20px 30px 0 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ── Top bar ── */
+
+.nf-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.nf-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nf-page-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #e2e8f0;
+}
+
+.nf-unread-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: #2a1010;
+    color: #f87171;
+}
+
+.nf-mark-btn {
+    font-size: 12px;
+    font-weight: 600;
+    color: #f87171;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.nf-mark-btn:hover {
+    opacity: 0.75;
+}
+
+/* ── Notification list ── */
+
+.nf-list {
+    padding-right: 20px;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-bottom: 24px;
+}
+
+.nf-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.nf-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.nf-list::-webkit-scrollbar-thumb {
+    background: #1e2433;
+    border-radius: 2px;
+}
+
+/* ── Notification row ── */
+
+.nf-row {
+    display: flex;
+    gap: 14px;
+    padding: 13px 10px;
+    border-radius: 10px;
+    border-bottom: 1px solid #1a1f2e;
+    cursor: pointer;
+    transition: background 0.15s, opacity 0.2s;
+}
+
+.nf-row:last-child {
+    border-bottom: none;
+}
+
+.nf-row:hover {
+    background: #161b27;
+}
+
+.nf-row.read {
+    opacity: 0.45;
+}
+
+.nf-ico {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.nf-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.nf-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3px;
+}
+
+.nf-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #c7d2e8;
+}
+
+.nf-row.read .nf-title {
+    font-weight: 400;
+    color: #4a5568;
+}
+
+.nf-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #f87171;
+    flex-shrink: 0;
+}
+
+.nf-desc {
+    font-size: 14px;
+    font-weight: 500;
+    color: #4a5568;
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+.nf-time {
+    font-size: 11px;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+/* ── Section title ── */
+
+.nf-sec-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    color: #4a5568;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+/* ── Settings rows ── */
+
+.nf-setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 0;
+    border-bottom: 1px solid #1a1f2e;
+}
+
+.nf-setting-row:last-of-type {
+    border-bottom: none;
+}
+
+.nf-setting-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #c7d2e8;
+    margin-bottom: 2px;
+}
+
+.nf-setting-sub {
+    font-size: 11px;
+    color: #4a5568;
+}
+
+/* ── Toggle ── */
+
+.nf-toggle {
+    width: 36px;
+    height: 20px;
+    border-radius: 10px;
+    background: #1e2433;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.nf-toggle.on {
+    background: #6366f1;
+}
+
+.nf-handle {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: white;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    transition: left 0.2s;
+}
+
+.nf-toggle.on .nf-handle {
+    left: 19px;
+}
+
+/* ── Divider ── */
+
+.nf-divider {
+    border: none;
+    border-top: 1px solid #1a1f2e;
+    margin: 14px 0;
+}
+
+/* ── Quick action buttons ── */
+
+.nf-action-btn {
+    width: 100%;
+    padding: 9px 13px;
+    background: #161b27;
+    border: 1px solid #1e2433;
+    border-radius: 8px;
+    color: #a5b4fc;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 8px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.nf-action-btn:hover {
+    background: #1c2040;
+    border-color: #7b8fe0;
+}
+
+.nf-action-btn.danger {
+    color: #f87171;
+}
+
+.nf-action-btn.danger:hover {
+    background: #2a1010;
+    border-color: #f87171;
+}
